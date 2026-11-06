@@ -5,27 +5,35 @@ import { Header } from "./components/Header";
 import { HorizontalNarrative } from "./components/HorizontalNarrative";
 import { HowItWorks } from "./components/HowItWorks";
 import { PilotSection } from "./components/PilotSection";
+import { LanguageProvider } from "./i18n/LanguageProvider";
+import { useLanguage } from "./i18n/LanguageProvider";
+import { LegalPage } from "./components/LegalPage";
 
 function handleSiteNav(href: string) {
-  if (href === "#hotelaria" || href === "#topo") {
-    window.dispatchEvent(new CustomEvent("mc-nav", { detail: href === "#topo" ? "#hotelaria" : href }));
-    if (href === "#topo") {
-      document.getElementById("topo")?.scrollIntoView({ behavior: "smooth" });
-    }
-    return;
-  }
   const id = href.replace("#", "");
-  document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  document.getElementById(id)?.scrollIntoView({ behavior: reducedMotion ? "auto" : "smooth" });
 }
 
 export default function App() {
+  return (
+    <LanguageProvider>
+      <AppContent />
+    </LanguageProvider>
+  );
+}
+
+function AppContent() {
+  const { t } = useLanguage();
+  const page = new URLSearchParams(window.location.search).get("page");
+  if (page === "privacy" || page === "terms" || page === "imprint") return <LegalPage kind={page} />;
   return (
     <div className="min-h-screen bg-forest text-ink">
       <a
         href="#conteudo"
         className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[80] focus:rounded-md focus:bg-cyan focus:px-3 focus:py-2 focus:text-ink"
       >
-        Saltar para o conteúdo
+        {t.common.skipContent}
       </a>
       <HorizontalNarrative />
       <main id="conteudo">

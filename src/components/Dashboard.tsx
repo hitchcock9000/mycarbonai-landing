@@ -14,6 +14,7 @@ import {
   IconRecycle,
 } from "./Icons";
 import { cn } from "../utils/cn";
+import { useLanguage } from "../i18n/LanguageProvider";
 
 const NAV_ITEMS = [
   { id: "overview", label: "Visão geral", icon: IconHome, active: true },
@@ -30,6 +31,7 @@ const METRIC_ICONS = {
 } as const;
 
 export function Dashboard({ className }: { className?: string }) {
+  const { t } = useLanguage();
   return (
     <div
       className={cn(
@@ -37,7 +39,7 @@ export function Dashboard({ className }: { className?: string }) {
         className,
       )}
       role="img"
-      aria-label="Pré-visualização ilustrativa do produto MyCarbonAI. Painel de visão geral com dados de exemplo."
+      aria-label={t.dashboard.aria}
     >
       <div className="flex items-center justify-between gap-3 border-b border-white/6 px-4 py-3">
         <div className="flex items-center gap-2 text-cyan">
@@ -50,7 +52,7 @@ export function Dashboard({ className }: { className?: string }) {
           tabIndex={-1}
         >
           <IconBuilding className="h-3.5 w-3.5 text-white/60" />
-          Hotel Atlântico, Lisboa
+          {t.common.hotelName}
           <IconChevron className="h-3 w-3 opacity-70" />
         </button>
       </div>
@@ -71,7 +73,7 @@ export function Dashboard({ className }: { className?: string }) {
                     )}
                   >
                     <Icon className="h-3.5 w-3.5" />
-                    {item.label}
+                    {t.dashboard.nav[NAV_ITEMS.indexOf(item)]}
                   </span>
                 </li>
               );
@@ -80,9 +82,9 @@ export function Dashboard({ className }: { className?: string }) {
         </aside>
 
         <div className="px-4 py-3 md:px-5">
-          <h2 className="text-[1.05rem] font-bold tracking-tight">Visão geral</h2>
+          <h2 className="text-[1.05rem] font-bold tracking-tight">{t.dashboard.overview}</h2>
           <p className="mt-0.5 text-[0.68rem] text-white/50">
-            Informação ambiental da sua operação, organizada e ligada à sua origem.
+            {t.dashboard.overviewBody}
           </p>
 
           <div className="mt-3 grid grid-cols-2 gap-2 lg:grid-cols-4">
@@ -94,24 +96,24 @@ export function Dashboard({ className }: { className?: string }) {
                   className="rounded-xl border border-white/8 bg-[#162033] px-2.5 py-2.5"
                 >
                   <Icon className="h-4 w-4 text-cyan" />
-                  <p className="mt-2 text-[0.62rem] text-white/50">{m.label}</p>
+                  <p className="mt-2 text-[0.62rem] text-white/50">{t.metrics[ILLUSTRATIVE_METRICS.indexOf(m)]}</p>
                   <p className="text-[0.95rem] font-bold leading-tight">
                     {m.value} <span className="text-[0.7rem] font-semibold text-white/70">{m.unit}</span>
                   </p>
-                  <span className="badge-illust mt-1.5">Dados ilustrativos</span>
+                  <span className="badge-illust mt-1.5">{t.illustrative}</span>
                 </div>
               );
             })}
             <div className="rounded-xl border border-white/8 bg-[#162033] px-2.5 py-2.5">
               <IconBox className="h-4 w-4 text-cyan" />
-              <p className="mt-2 text-[0.62rem] text-white/50">Fornecedores</p>
+              <p className="mt-2 text-[0.62rem] text-white/50">{t.dashboard.suppliers}</p>
               <p className="text-[0.95rem] font-bold leading-tight">24</p>
-              <span className="badge-illust mt-1.5">Registos organizados</span>
+              <span className="badge-illust mt-1.5">{t.dashboard.organizedRecords}</span>
             </div>
           </div>
 
           <div className="mt-3 rounded-xl border border-white/8 bg-[#10192b] px-3 py-2.5">
-            <p className="mb-2 text-[0.72rem] font-semibold text-white/80">Documentos</p>
+            <p className="mb-2 text-[0.72rem] font-semibold text-white/80">{t.dashboard.documents}</p>
             <ul className="space-y-1.5">
               {DOCUMENTS.map((d) => (
                 <li
@@ -119,12 +121,12 @@ export function Dashboard({ className }: { className?: string }) {
                   className="grid grid-cols-[16px_1fr_auto_auto_auto] items-center gap-2 text-[0.66rem] text-white/75"
                 >
                   <IconFile className="h-3.5 w-3.5 text-white/40" />
-                  <span className="truncate">{d.title}</span>
+                  <span className="truncate">{t.docs[DOCUMENTS.indexOf(d)]}</span>
                   <span className="rounded-full bg-emerald-500/15 px-1.5 py-0.5 text-[0.58rem] font-semibold text-emerald-300">
-                    Ligado
+                    {t.linked}
                   </span>
                   <span className="hidden text-white/40 sm:inline">{d.origin}</span>
-                  <span className="text-white/40">{d.period}</span>
+                  <span className="text-white/40">{t.dashboard.period}</span>
                 </li>
               ))}
             </ul>

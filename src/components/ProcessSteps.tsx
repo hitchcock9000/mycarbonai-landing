@@ -1,6 +1,7 @@
 import { STEPS } from "../data/content";
 import { IconBolt, IconChart, IconFile, IconIdentify, IconLeaf } from "./Icons";
 import { cn } from "../utils/cn";
+import { useLanguage } from "../i18n/LanguageProvider";
 
 const ICONS = [IconIdentify, IconChart, IconLeaf, IconBolt, IconFile];
 
@@ -11,6 +12,7 @@ type ProcessStepsProps = {
 };
 
 export function ProcessSteps({ className, compact = false, highlight = 0 }: ProcessStepsProps) {
+  const { t } = useLanguage();
   return (
     <ol className={cn("relative grid grid-cols-5 gap-2", className)}>
       <span
@@ -31,10 +33,10 @@ export function ProcessSteps({ className, compact = false, highlight = 0 }: Proc
               <Icon className="h-4 w-4" />
             </span>
             <p className={cn("mt-3 font-bold text-ink", compact ? "text-[0.8rem]" : "text-[0.92rem]")}>
-              {step.title}
+              {t.stepNames[i]}
             </p>
             {!compact && (
-              <p className="mt-1 max-w-[10.5rem] text-[0.75rem] leading-snug text-muted">{step.text}</p>
+              <p className="mt-1 max-w-[10.5rem] text-[0.75rem] leading-snug text-muted">{t.stepTexts[i]}</p>
             )}
           </li>
         );

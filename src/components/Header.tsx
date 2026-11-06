@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { Logo } from "./Logo";
 import { IconArrow, IconClose, IconMenu } from "./Icons";
-import { COPY, NAV } from "../data/content";
+import { NAV } from "../data/content";
 import { cn } from "../utils/cn";
+import { useLanguage } from "../i18n/LanguageProvider";
 
 type HeaderProps = {
   theme?: "light" | "dark";
@@ -19,6 +20,7 @@ export function Header({
   onNav,
   solid = false,
 }: HeaderProps) {
+  const { language, setLanguage, t } = useLanguage();
   const [open, setOpen] = useState(false);
   const light = theme === "light";
   const logoLight = (logoTheme ?? theme) === "light";
@@ -41,29 +43,53 @@ export function Header({
           markClassName="text-cyan"
         />
 
-        <nav className="hidden items-center gap-9 lg:flex" aria-label="Secções">
-          {NAV.map((item) => (
+        <nav className="hidden items-center gap-9 lg:flex" aria-label={t.common.navLabel}>
+          {NAV.map((item, index) => (
             <a
               key={item.id}
               href={item.href}
               onClick={(e) => {
-                e.preventDefault();
-                handle(item.href);
+                if (onNav) {
+                  e.preventDefault();
+                  handle(item.href);
+                } else {
+                  setOpen(false);
+                }
               }}
+              aria-current={activeId === item.id ? "location" : undefined}
               className={cn(
                 "nav-link",
                 light ? "text-ink/80 hover:text-ink" : "text-white/90 hover:text-white",
                 activeId === item.id && "is-active",
               )}
             >
-              {item.label}
+              {t.nav[index]}
             </a>
           ))}
         </nav>
 
         <div className="flex items-center gap-3">
+          <div className={cn("flex items-center rounded-full border p-0.5 text-[0.68rem] font-bold", light ? "border-ink/15" : "border-white/20")} role="group" aria-label={t.language}>
+            {(["pt", "en"] as const).map((code) => (
+              <button
+                key={code}
+                type="button"
+                aria-pressed={language === code}
+                aria-label={code === "pt" ? t.switchToPortuguese : t.switchToEnglish}
+                onClick={() => setLanguage(code)}
+                className={cn(
+                  "min-w-8 rounded-full px-2 py-1 transition-colors",
+                  language === code
+                    ? "bg-cyan text-ink"
+                    : light ? "text-ink/70 hover:bg-ink/5" : "text-white/75 hover:bg-white/10",
+                )}
+              >
+                {code.toUpperCase()}
+              </button>
+            ))}
+          </div>
           <a href="#piloto" className="btn-primary btn-sm hidden sm:inline-flex" onClick={() => setOpen(false)}>
-            {COPY.ctaPilot}
+            {t.ctaPilot}
             <IconArrow />
           </a>
           <button
@@ -74,7 +100,7 @@ export function Header({
             )}
             aria-expanded={open}
             aria-controls="menu-mobile"
-            aria-label={open ? "Fechar menu" : "Abrir menu"}
+            aria-label={open ? t.common.closeMenu : t.common.openMenu}
             onClick={() => setOpen((v) => !v)}
           >
             {open ? <IconClose /> : <IconMenu />}
@@ -87,22 +113,26 @@ export function Header({
           id="menu-mobile"
           className="pointer-events-auto border-t border-white/10 bg-forest/95 px-5 py-5 backdrop-blur-md lg:hidden"
         >
-          <nav className="flex flex-col gap-1" aria-label="Menu móvel">
-            {NAV.map((item) => (
+          <nav className="flex flex-col gap-1" aria-label={t.common.mobileNavLabel}>
+          {NAV.map((item, index) => (
               <a
                 key={item.id}
                 href={item.href}
                 onClick={(e) => {
-                  e.preventDefault();
-                  handle(item.href);
+                  if (onNav) {
+                    e.preventDefault();
+                    handle(item.href);
+                  } else {
+                    setOpen(false);
+                  }
                 }}
                 className="rounded-lg px-3 py-3 text-base font-semibold text-white"
               >
-                {item.label}
+                {t.nav[index]}
               </a>
             ))}
             <a href="#piloto" className="btn-primary mt-3" onClick={() => setOpen(false)}>
-              {COPY.ctaPilot}
+              {t.ctaPilot}
               <IconArrow />
             </a>
           </nav>

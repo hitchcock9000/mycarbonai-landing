@@ -1,5 +1,5 @@
-import { COPY } from "../data/content";
 import { IconArrow, IconPlay } from "./Icons";
+import { useLanguage } from "../i18n/LanguageProvider";
 
 type LeftColumnProps = {
   onHow: () => void;
@@ -7,43 +7,45 @@ type LeftColumnProps = {
 };
 
 export function LeftColumn({ onHow, compact = false }: LeftColumnProps) {
+  const { t } = useLanguage();
   return (
     <div
       className={`relative z-10 flex h-full flex-col justify-center ${
-        compact ? "px-5 py-10" : "px-6 pb-16 pt-24 md:px-10 lg:px-12 xl:px-14"
+        compact ? "min-h-[100svh] px-5 pb-10 pt-28" : "px-5 pb-14 pt-24 sm:px-8 lg:px-10 xl:px-14"
       }`}
     >
-      <p className="eyebrow mb-6 text-white/75">{COPY.eyebrow}</p>
+      <p className="eyebrow mb-4 text-white/75">{t.hero.eyebrow}</p>
 
       <h1
         className={`font-display text-white [text-shadow:0_2px_28px_rgba(0,0,0,0.35)] ${
           compact
-            ? "text-[2.15rem] leading-[1.08]"
-            : "text-[2.35rem] leading-[1.05] sm:text-[2.8rem] lg:text-[3.45rem] xl:text-[4.15rem]"
+            ? "text-[clamp(2.15rem,5vw,4rem)] leading-[1.04]"
+            : "text-[clamp(2.25rem,3vw,3.15rem)] leading-[1.04]"
         }`}
       >
-        {COPY.titleLead}{" "}
-        <span className="text-cyan">{COPY.titleAccent}</span> {COPY.titleTail}
+        <span className="block">{t.hero.lead}</span>
+        <span className="block text-cyan">{t.hero.accent}</span>
+        <span className="block">{t.hero.tail}</span>
       </h1>
 
       <p
-        className={`mt-6 max-w-[34rem] text-white/82 ${
-          compact ? "text-[0.98rem] leading-relaxed" : "text-[1.02rem] leading-[1.55] lg:text-[1.08rem]"
+        className={`mt-5 max-w-[34rem] text-white/82 ${
+          compact ? "text-[0.98rem] leading-relaxed" : "text-[1rem] leading-[1.5] xl:text-[1.05rem]"
         }`}
       >
-        {COPY.body}
+        {t.hero.body}
       </p>
 
-      <div className="mt-8 flex flex-wrap items-center gap-5">
+      <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-3">
         <a href="#piloto" className="btn-primary">
-          {COPY.ctaPilot}
+          {t.ctaPilot}
           <IconArrow />
         </a>
         <button type="button" className="btn-ghost" onClick={onHow}>
           <span className="play text-white">
             <IconPlay />
           </span>
-          <span className="label">{COPY.ctaHow}</span>
+          <span className="label">{t.ctaHow}</span>
         </button>
       </div>
     </div>
