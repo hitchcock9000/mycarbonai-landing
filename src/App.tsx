@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { ContactCTA } from "./components/ContactCTA";
 import { Footer } from "./components/Footer";
 import { FutureVision } from "./components/FutureVision";
@@ -8,6 +9,20 @@ import { PilotSection } from "./components/PilotSection";
 import { LanguageProvider } from "./i18n/LanguageProvider";
 import { useLanguage } from "./i18n/LanguageProvider";
 import { LegalPage } from "./components/LegalPage";
+import { PrivacyConsent } from "./components/PrivacyConsent";
+import { ScrollToTop } from "./components/ScrollToTop";
+
+type PrivacyChoice = "allow" | "reject" | null;
+const PRIVACY_CHOICE_KEY = "mc-websitecarbon-consent";
+
+function readPrivacyChoice(): PrivacyChoice {
+  try {
+    const choice = localStorage.getItem(PRIVACY_CHOICE_KEY);
+    return choice === "allow" || choice === "reject" ? choice : null;
+  } catch {
+    return null;
+  }
+}
 
 function handleSiteNav(href: string) {
   const id = href.replace("#", "");
@@ -25,8 +40,27 @@ export default function App() {
 
 function AppContent() {
   const { t } = useLanguage();
+  const [privacyChoice, setPrivacyChoice] = useState<PrivacyChoice>(readPrivacyChoice);
+  const [privacyOpen, setPrivacyOpen] = useState(() => readPrivacyChoice() === null);
   const page = new URLSearchParams(window.location.search).get("page");
-  if (page === "privacy" || page === "terms" || page === "imprint") return <LegalPage kind={page} />;
+  const choosePrivacy = (allowWebsiteCarbon: boolean) => {
+    const choice = allowWebsiteCarbon ? "allow" : "reject";
+    setPrivacyChoice(choice);
+    setPrivacyOpen(false);
+    try {
+      localStorage.setItem(PRIVACY_CHOICE_KEY, choice);
+    } catch {
+      // The choice remains active for this page view if browser storage is unavailable.
+    }
+  };
+
+  if (page === "privacy" || page === "terms" || page === "imprint") {
+    return <>
+      <LegalPage kind={page} onPrivacySettings={() => setPrivacyOpen(true)} />
+      <PrivacyConsent open={privacyOpen} onChoose={choosePrivacy} />
+      <ScrollToTop />
+    </>;
+  }
   return (
     <div className="min-h-screen bg-forest text-ink">
       <a
@@ -45,7 +79,9 @@ function AppContent() {
         <FutureVision />
         <ContactCTA />
       </main>
-      <Footer />
+      <Footer carbonBadgeEnabled={privacyChoice === "allow"} onPrivacySettings={() => setPrivacyOpen(true)} />
+      <PrivacyConsent open={privacyOpen} onChoose={choosePrivacy} />
+      <ScrollToTop />
     </div>
   );
 }

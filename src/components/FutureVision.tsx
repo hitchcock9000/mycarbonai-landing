@@ -10,33 +10,30 @@ export function FutureVision() {
       <div className="mx-auto max-w-[1200px] px-6 lg:px-10">
         <div className="flex flex-wrap items-center gap-3">
           <span className="vision-badge">{t.future.badge}</span>
-          <p className="text-sm text-white/75">{t.future.disclaimer}</p>
+          <p className="text-sm font-medium text-white/85">{t.future.disclaimer}</p>
         </div>
         <h2 className="mt-6 max-w-2xl font-display text-4xl leading-[1.1] lg:text-[2.75rem]">
           {t.future.title}
         </h2>
-        <p className="mt-5 max-w-2xl text-[1.05rem] leading-relaxed text-white/70">
+        <p className="mt-5 max-w-2xl text-[1.05rem] leading-relaxed text-white/80">
           {t.future.body}
         </p>
 
-        <ul className="mt-14 grid gap-5 sm:grid-cols-2">
+        <ul className="mt-10 grid gap-4 sm:grid-cols-2 lg:gap-5">
           {t.future.cards.map((item, i) => {
             const Icon = ICONS[i];
             return (
               <li
                 key={item.title}
-                className="rounded-2xl border border-white/8 bg-white/4 p-7"
+                className="rounded-2xl border border-white/10 bg-white/[0.045] p-6 transition-colors duration-200 hover:border-cyan/30 hover:bg-white/[0.07] lg:p-7"
               >
-                <div className="flex items-start justify-between gap-4">
-                  <span className="grid h-11 w-11 place-items-center rounded-full bg-cyan/15 text-cyan">
+                <div className="flex items-center gap-4">
+                  <span aria-hidden="true" className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-cyan/15 text-cyan">
                     <Icon className="h-5 w-5" />
                   </span>
-                  <span className="rounded-full border border-white/15 px-2.5 py-1 text-[0.62rem] font-bold uppercase tracking-wider text-white/45">
-                    {t.future.cardBadge}
-                  </span>
+                  <h3 className="text-lg font-bold leading-snug">{item.title}</h3>
                 </div>
-                <h3 className="mt-5 text-lg font-bold">{item.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-white/75">{item.body}</p>
+                <p className="mt-4 pl-[3.75rem] text-sm leading-relaxed text-white/80">{item.body}</p>
               </li>
             );
           })}

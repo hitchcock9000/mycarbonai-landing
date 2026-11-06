@@ -56,14 +56,14 @@ export const ILLUSTRATIVE_METRICS = [
     label: "Energia",
     value: "12.460",
     unit: "kWh",
-    source: "fatura_edp.pdf",
+    source: "fatura_energia.pdf",
   },
   {
     id: "agua",
     label: "Água",
     value: "401",
     unit: "m³",
-    source: "fatura_aguas.pdf",
+    source: "fatura_agua.pdf",
   },
   {
     id: "residuos",

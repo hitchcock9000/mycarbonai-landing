@@ -2,136 +2,118 @@ import { Logo } from "./Logo";
 import { useLanguage } from "../i18n/LanguageProvider";
 
 type LegalKind = "privacy" | "terms" | "imprint";
-
 type LegalSection = { title: string; paragraphs: string[]; bullets?: string[] };
-
-const copy: Record<"pt" | "en", Record<LegalKind, {
+type LegalCopy = {
   title: string;
   intro: string;
-  draft: string;
   updated: string;
   sections: LegalSection[];
   back: string;
   other: string;
-  missingTitle: string;
-  missing: string[];
-  authority: string;
-}>> = {
+  authority?: string;
+};
+
+const entity = "NATASHA SILVESTRE - UNIPESSOAL LDA";
+const address = "Rua Basílio Teles, 10, 1.º 2, 8500-567 Portimão, Portugal";
+
+const copy: Record<"pt" | "en", Record<LegalKind, LegalCopy>> = {
   pt: {
     imprint: {
-      title: "Informações Legais",
-      intro: "Identificação e contactos da entidade apresentados numa versão anterior do site. Os dados estão sujeitos a confirmação antes da publicação definitiva.",
-      draft: "Rascunho — dados da entidade por confirmar",
-      updated: "Informação consultada na versão mycarbonai-1.0 em 5 de novembro de 2026",
+      title: "Informações legais",
+      intro: "Identificação da entidade responsável pelo website MyCarbonAI.",
+      updated: "Última atualização: 6 de novembro de 2026",
       sections: [
-        { title: "1. Identificação", paragraphs: ["Denominação social indicada na versão anterior: NATASHA SILVESTRE UNIPESSOAL LDA.", "NIPC, morada completa da sede e registo comercial: a confirmar com a documentação atual da empresa."] },
-        { title: "2. Contactos", paragraphs: ["Email geral indicado: info@mycarbonai.com.", "Localização indicada: Portimão, Portugal. Esta localização não substitui a morada legal da sede."] },
-        { title: "3. Website e finalidade", paragraphs: ["Endereço indicado: mycarbonai.com. Finalidade descrita: informação institucional sobre o projeto."] },
-        { title: "4. Propriedade intelectual", paragraphs: ["Os titulares dos conteúdos, imagens e elementos de marca e as respetivas condições de utilização ainda devem ser confirmados."] },
+        { title: "1. Entidade responsável", paragraphs: [`Denominação social: ${entity}.`, "NIPC: 519020804.", `Sede: ${address}.`] },
+        { title: "2. Contactos", paragraphs: ["Email: info@mycarbonai.com.", "Website: mycarbonai.com."] },
+        { title: "3. Finalidade do website", paragraphs: ["Este website apresenta a MyCarbonAI, a sua missão, a abordagem em validação com equipas hoteleiras e a possibilidade de conversar sobre um piloto."] },
+        { title: "4. Propriedade intelectual", paragraphs: ["A marca MyCarbonAI e os conteúdos deste website pertencem aos respetivos titulares. A sua reprodução ou utilização fora dos limites legais depende de autorização prévia do titular dos direitos."] },
       ],
       back: "Voltar à página inicial",
-      other: "Aviso de Privacidade",
-      missingTitle: "Informação necessária para finalizar",
-      missing: ["Confirmar a denominação social e a entidade que opera este site", "NIPC e morada completa da sede", "Dados do registo comercial e representante legal, caso aplicável", "Confirmar os contactos e os direitos sobre os conteúdos publicados"],
-      authority: "",
+      other: "Aviso de privacidade",
     },
     privacy: {
-      title: "Aviso de Privacidade",
-      intro: "Este aviso descreve, em rascunho, o que esta versão da landing page faz com informação no navegador. Tem de ser completado e confirmado pela entidade responsável antes de publicação como política definitiva.",
-      draft: "Rascunho — requer revisão e dados da entidade responsável",
-      updated: "Rascunho criado em 5 de novembro de 2026",
+      title: "Aviso de privacidade",
+      intro: "Este aviso explica como a MyCarbonAI trata os dados pessoais enviados através do website.",
+      updated: "Última atualização: 6 de novembro de 2026",
       sections: [
-        { title: "1. Quem é responsável", paragraphs: ["A versão mycarbonai-1.0 identifica NATASHA SILVESTRE UNIPESSOAL LDA como denominação social da MyCarbonAI. Esse aviso também está marcado como rascunho; a entidade que opera esta landing page tem de confirmar a identidade antes da publicação definitiva. O mesmo aviso indica Portimão, Portugal, mas não fornece a morada completa da sede nem o NIPC."] },
-        { title: "2. Informação tratada por esta página", paragraphs: ["A preferência de idioma pode ser guardada no armazenamento local do navegador com a chave “mc-language”, para manter português ou inglês entre visitas.", "O site carrega a tipografia Plus Jakarta Sans através do Google Fonts. Ao pedir essa fonte, o navegador comunica com serviços da Google; a utilização deste fornecedor e a informação técnica associada devem ser confirmadas na configuração final de alojamento.", "O formulário de contacto é apenas uma pré-visualização. Não está ligado a um serviço de envio: os dados introduzidos não são transmitidos nem guardados pelo formulário. Não introduza informação pessoal nesta demonstração."] },
-        { title: "3. Cookies e tecnologias semelhantes", paragraphs: ["O código desta landing page guarda a preferência de idioma no armazenamento local do navegador. Não foi identificada uma ferramenta de análise de visitas no código revisto. O alojamento e quaisquer ferramentas acrescentadas à publicação final devem ser confirmados antes de fechar este aviso."] },
-        { title: "4. Destinatários, transferências e conservação", paragraphs: ["O fornecedor de alojamento, os registos técnicos do servidor, os prazos de conservação e eventuais transferências internacionais ainda não foram confirmados para este site. A entidade responsável deve preencher estes pontos com base nos serviços efetivamente usados."] },
-        { title: "5. Direitos e contacto", paragraphs: ["Quando exista tratamento de dados pessoais, os titulares podem ter direitos de acesso, retificação, apagamento, limitação, oposição e portabilidade, nos termos aplicáveis. O contacto geral encontrado na versão anterior é info@mycarbonai.com; a entidade deve confirmar se este endereço recebe pedidos de privacidade.", "Também pode apresentar reclamação à autoridade de controlo competente. Em Portugal, consulte a Comissão Nacional de Proteção de Dados (CNPD)."], bullets: ["Morada e NIPC da entidade responsável: por confirmar", "Confirmação do contacto info@mycarbonai.com para pedidos de privacidade", "Fundamentos e prazos de conservação: por confirmar"] },
+        { title: "1. Responsável pelo tratamento", paragraphs: [`A responsável pelo tratamento é ${entity}, NIPC 519020804, com sede em ${address}. Pode contactar-nos através de info@mycarbonai.com.`] },
+        { title: "2. Dados e finalidades", paragraphs: ["Se preencher o formulário para conversar sobre um piloto, tratamos o seu nome, email profissional, hotel ou organização, resposta à pergunta sobre pedidos de informação ambiental e o contexto que decida acrescentar. Usamos estes dados para responder ao pedido, avaliar a adequação de uma conversa de piloto e dar seguimento à comunicação.", "O formulário inclui um campo técnico anti-spam. O idioma escolhido pode ser guardado no armazenamento local do navegador, sob a chave “mc-language”, para manter a sua preferência entre visitas."] },
+        { title: "3. Fundamento e caráter facultativo", paragraphs: ["Tratamos os dados do formulário para tomar medidas pré-contratuais a seu pedido e responder à manifestação de interesse. O envio é voluntário; sem os dados assinalados como obrigatórios, poderemos não conseguir responder ao pedido. O contexto adicional é facultativo."] },
+        { title: "4. Destinatários e serviços usados", paragraphs: ["Quando o formulário está ligado, os dados são enviados para uma função de backend Supabase e guardados na base de dados de contactos da MyCarbonAI. A função pode usar a Resend para enviar uma confirmação ao endereço indicado e uma notificação à equipa. Estes fornecedores tratam dados para prestar os serviços técnicos correspondentes e nos termos aplicáveis.", "A tipografia Plus Jakarta Sans é carregada através do Google Fonts. Se aceitar o selo Website Carbon, o navegador carrega um script da unpkg.com, que consulta a Website Carbon para obter uma estimativa da página atual. Esta consulta transmite o endereço da página e os dados técnicos normais da ligação. O selo guarda a estimativa em cache no dispositivo e limita as consultas a, no máximo, uma por dia e por página. Ao retirar a autorização, o selo deixa de ser carregado; a cache anterior pode permanecer no navegador até os dados do site serem eliminados.", "O website não utiliza Google Analytics nem outras ferramentas de análise de visitas no código atual. O armazenamento local é usado para guardar o idioma e a preferência do selo; o selo só é carregado depois de o aceitar. Pode alterar a preferência no controlo de privacidade do rodapé."] },
+        { title: "5. Conservação e segurança", paragraphs: ["Conservamos os pedidos durante o tempo necessário para responder e acompanhar a conversa e, depois, apenas pelo período necessário para cumprir obrigações legais ou resolver questões relacionadas com o pedido. Aplicamos medidas técnicas e organizativas adequadas para proteger os dados. A transmissão pela Internet não pode ser considerada totalmente isenta de risco."] },
+        { title: "6. Os seus direitos", paragraphs: ["Nos termos da legislação aplicável, pode solicitar acesso, retificação, apagamento, limitação ou oposição ao tratamento e, quando aplicável, portabilidade dos dados. Pode retirar o consentimento quando o tratamento se baseie nele, sem afetar o tratamento anterior à retirada. Para exercer os seus direitos, escreva para info@mycarbonai.com.", "Pode também apresentar reclamação à Comissão Nacional de Proteção de Dados (CNPD), autoridade de controlo em Portugal."], bullets: ["Comissão Nacional de Proteção de Dados (CNPD)"] },
+        { title: "7. Alterações a este aviso", paragraphs: ["Podemos atualizar este aviso quando o website, o formulário ou os serviços utilizados mudarem. A versão publicada nesta página é a aplicável a partir da data indicada acima."] },
       ],
       back: "Voltar à página inicial",
       other: "Termos de utilização",
-      missingTitle: "Informação necessária para finalizar",
-      missing: ["Confirmar NATASHA SILVESTRE UNIPESSOAL LDA como entidade responsável por esta landing page", "NIPC e morada completa da sede", "Confirmar info@mycarbonai.com como canal para pedidos de privacidade", "Fornecedor de alojamento, registos técnicos, fundamentos e prazos de conservação", "Finalidade, fundamento e prazo de conservação de cada dado recolhido, se o formulário vier a ser ligado"],
-      authority: "Comissão Nacional de Proteção de Dados",
+      authority: "https://www.cnpd.pt/cidadaos/direitos/",
     },
     terms: {
-      title: "Termos de Utilização",
-      intro: "Estes termos são um rascunho para a utilização informativa desta landing page. Não substituem os termos comerciais de um piloto ou de qualquer serviço contratado.",
-      draft: "Rascunho — requer confirmação da entidade responsável",
-      updated: "Rascunho criado em 5 de novembro de 2026",
+      title: "Termos de utilização",
+      intro: "Estes termos regulam a utilização informativa do website MyCarbonAI.",
+      updated: "Última atualização: 6 de novembro de 2026",
       sections: [
-        { title: "1. Sobre este site", paragraphs: ["Este site apresenta a MyCarbonAI, a sua abordagem e a exploração de um piloto de design parceiro para hotelaria. A versão mycarbonai-1.0 identifica NATASHA SILVESTRE UNIPESSOAL LDA como denominação social e info@mycarbonai.com como contacto geral; ambos os dados carecem de confirmação para esta landing page."] },
-        { title: "2. Estado do produto e do piloto", paragraphs: ["A informação do site descreve um produto em validação. O âmbito apresentado para o piloto é reunir documentos operacionais, estruturar informação, apoiar revisão humana e manter os registos ligados às fontes.", "O piloto não é certificação, verificação independente ou garantia de conformidade regulamentar. A página não formaliza uma adesão a piloto nem um contrato de prestação de serviços."] },
-        { title: "3. Dados e imagens ilustrativos", paragraphs: ["Os valores, nomes de documentos, painéis e exemplos apresentados são ilustrativos. Não representam resultados de clientes, medições verificadas, poupanças ou desempenho garantido.", "A informação do site é geral e não constitui aconselhamento jurídico, técnico, financeiro ou ambiental para uma operação específica."] },
-        { title: "4. Utilização do site", paragraphs: ["Pode consultar este site para fins informativos. Não deve utilizá-lo de forma ilícita, interferir com o seu funcionamento ou apresentar conteúdo do site como resultado real de um hotel sem autorização e contexto adequados.", "Os direitos sobre marcas, textos, imagens e outros elementos pertencem aos respetivos titulares. A utilização de um elemento não concede direitos de propriedade sobre ele."] },
-        { title: "5. Disponibilidade e responsabilidade", paragraphs: ["O site é disponibilizado como apresentação informativa e pode ser alterado. A identidade da entidade responsável, os limites de responsabilidade e as condições aplicáveis têm de ser revistos e completados antes da publicação definitiva destes termos."] },
-        { title: "6. Lei aplicável e contacto", paragraphs: ["A lei aplicável, o foro competente e os dados de contacto da entidade responsável não estão definidos neste rascunho. Devem ser confirmados pela entidade que opera o site antes da sua publicação."] },
+        { title: "1. Entidade e contacto", paragraphs: [`O website é operado por ${entity}, NIPC 519020804, com sede em ${address}. Contacto: info@mycarbonai.com.`] },
+        { title: "2. Conteúdo e estado do produto", paragraphs: ["O website apresenta a missão da MyCarbonAI e um piloto em exploração com equipas hoteleiras. O âmbito previsto do piloto é de quatro semanas, uma unidade e um período, sujeito a avaliação inicial e acordo de âmbito com cada participante.", "O trabalho descrito no piloto centra-se em reunir documentos operacionais, estruturar informação, apoiar revisão humana e manter cada registo ligado à sua origem. A página não formaliza a participação num piloto nem substitui um acordo escrito entre as partes."] },
+        { title: "3. Limites do piloto e exemplos", paragraphs: ["O piloto não constitui certificação, verificação independente nem garantia de conformidade regulamentar. CO₂e só é indicado quando possa ser calculado com os dados e fatores disponíveis; a metodologia e os limites têm de ser acordados no âmbito do piloto.", "Valores, nomes de documentos e interfaces apresentados como exemplos são ilustrativos. Não representam resultados de clientes, medições verificadas, poupanças ou desempenho garantido. O conteúdo do website é informativo e não constitui aconselhamento jurídico, técnico, financeiro ou ambiental para uma operação específica."] },
+        { title: "4. Utilização aceitável", paragraphs: ["Pode consultar e partilhar ligações para este website para fins lícitos e informativos. Não pode interferir com o funcionamento do website, tentar aceder sem autorização aos seus sistemas ou apresentar exemplos ilustrativos como resultados reais."] },
+        { title: "5. Conteúdos e disponibilidade", paragraphs: ["A marca, os textos, as imagens e os restantes elementos pertencem aos respetivos titulares e não podem ser reproduzidos fora dos limites legais sem autorização. Procuramos manter a informação clara e atualizada, mas o website pode ser alterado, suspenso ou ficar temporariamente indisponível."] },
+        { title: "6. Lei aplicável", paragraphs: ["A utilização do website rege-se pela legislação portuguesa e europeia aplicável, sem prejuízo das normas imperativas de proteção do consumidor ou de competência que se apliquem ao caso concreto. Qualquer piloto ou serviço contratado será regulado por acordo próprio."] },
       ],
       back: "Voltar à página inicial",
-      other: "Aviso de Privacidade",
-      missingTitle: "Informação necessária para finalizar",
-      missing: ["Confirmar a entidade responsável e o email geral info@mycarbonai.com", "NIPC e morada completa da sede", "Lei aplicável e foro a confirmar com aconselhamento jurídico", "Confirmação dos direitos sobre os conteúdos publicados"],
-      authority: "",
+      other: "Aviso de privacidade",
     },
   },
   en: {
     imprint: {
-      title: "Legal Notice",
-      intro: "Company identity and contact details shown in an earlier version of the website. These details need confirmation before final publication.",
-      draft: "Draft — company details to be confirmed",
-      updated: "Details checked in mycarbonai-1.0 on 5 November 2026",
+      title: "Legal notice",
+      intro: "Identity of the organisation responsible for the MyCarbonAI website.",
+      updated: "Last updated: 6 November 2026",
       sections: [
-        { title: "1. Identity", paragraphs: ["Registered name listed in the earlier version: NATASHA SILVESTRE UNIPESSOAL LDA.", "Company number (NIPC), full registered office address and commercial registry: to be confirmed against the company’s current records."] },
-        { title: "2. Contact", paragraphs: ["General email listed: info@mycarbonai.com.", "Location listed: Portimão, Portugal. This location is not a substitute for the registered office address."] },
-        { title: "3. Website and purpose", paragraphs: ["Website listed: mycarbonai.com. Stated purpose: institutional information about the project."] },
-        { title: "4. Intellectual property", paragraphs: ["The owners of the website content, images and brand elements, and the terms for their use, still need to be confirmed."] },
+        { title: "1. Responsible organisation", paragraphs: [`Registered name: ${entity}.`, "Company number (NIPC): 519020804.", `Registered office: ${address}.`] },
+        { title: "2. Contact", paragraphs: ["Email: info@mycarbonai.com.", "Website: mycarbonai.com."] },
+        { title: "3. Website purpose", paragraphs: ["This website introduces MyCarbonAI, its mission, the approach being explored with hospitality teams and the opportunity to discuss a pilot."] },
+        { title: "4. Intellectual property", paragraphs: ["The MyCarbonAI brand and this website’s content belong to their respective rights holders. Reproduction or use beyond legal exceptions requires prior permission from the rights holder."] },
       ],
       back: "Back to home",
       other: "Privacy notice",
-      missingTitle: "Details needed to finalise this notice",
-      missing: ["Confirm the registered name and the organisation operating this site", "Company number and full registered office address", "Commercial registry details and legal representative, if applicable", "Confirm contact details and rights to the published content"],
-      authority: "",
     },
     privacy: {
-      title: "Privacy Notice",
-      intro: "This draft describes what this version of the landing page does with information in the browser. The responsible organisation must complete and confirm it before it is published as a final policy.",
-      draft: "Draft — review and controller details required",
-      updated: "Draft created on 5 November 2026",
+      title: "Privacy notice",
+      intro: "This notice explains how MyCarbonAI handles personal data submitted through this website.",
+      updated: "Last updated: 6 November 2026",
       sections: [
-        { title: "1. Who is responsible", paragraphs: ["The mycarbonai-1.0 version lists NATASHA SILVESTRE UNIPESSOAL LDA as the registered name for MyCarbonAI. That legal notice is also marked as a draft; the organisation operating this landing page must confirm its identity before final publication. The same notice lists Portimão, Portugal, but does not provide the full registered office address or company number."] },
-        { title: "2. Information handled by this page", paragraphs: ["Your language preference may be saved in your browser’s local storage under “mc-language” so the site can remember Portuguese or English between visits.", "The site loads the Plus Jakarta Sans typeface through Google Fonts. When the font is requested, your browser communicates with Google services; this provider and the related technical information must be confirmed against the final hosting setup.", "The contact form is a preview only. It is not connected to a submission service: details entered are not transmitted or saved by the form. Please do not enter personal information in this demonstration."] },
-        { title: "3. Cookies and similar technologies", paragraphs: ["This landing page stores the language preference in browser local storage. No visit analytics tool was identified in the reviewed code. The hosting provider and any tools added to the published site must be confirmed before this notice is finalised."] },
-        { title: "4. Recipients, transfers and retention", paragraphs: ["The hosting provider, technical server logs, retention periods and any international transfers have not been confirmed for this site. The responsible organisation must complete these details based on the services actually used."] },
-        { title: "5. Your rights and contact", paragraphs: ["Where personal data is processed, people may have rights of access, rectification, erasure, restriction, objection and portability under applicable law. The general contact found in the earlier version is info@mycarbonai.com; the organisation must confirm whether it accepts privacy requests.", "You may also complain to the competent supervisory authority. In Portugal, see the National Data Protection Commission (CNPD)."], bullets: ["Controller address and company number: to be confirmed", "Confirm info@mycarbonai.com for privacy requests", "Legal bases and retention periods: to be confirmed"] },
+        { title: "1. Data controller", paragraphs: [`The controller is ${entity}, company number (NIPC) 519020804, with registered office at ${address}. Contact: info@mycarbonai.com.`] },
+        { title: "2. Data and purposes", paragraphs: ["If you use the form to discuss a pilot, we process your name, work email, hotel or organisation, your answer to the question about requests for environmental information, and any context you choose to provide. We use these details to respond, assess whether a pilot conversation may be suitable and follow up on your enquiry.", "The form includes a technical anti-spam field. Your language choice may be stored in your browser’s local storage under “mc-language” so the site can remember it between visits."] },
+        { title: "3. Legal basis and optional information", paragraphs: ["We process form data to take steps at your request before entering into a possible agreement and to respond to your enquiry. Submission is voluntary; without the required fields, we may not be able to respond. The additional context field is optional."] },
+        { title: "4. Recipients and services", paragraphs: ["When connected, form data is sent to a Supabase backend function and stored in MyCarbonAI’s contact database. The function may use Resend to send a confirmation to the address provided and a notification to the team. These providers process data to deliver the relevant technical services and under applicable terms.", "The Plus Jakarta Sans typeface is loaded through Google Fonts. If you accept the Website Carbon badge, your browser loads a script from unpkg.com, which contacts Website Carbon for an estimate of the current page. This request sends the page address and normal technical connection data. The badge caches the estimate on your device and makes no more than one API request per day for each page. If you withdraw permission, the badge stops loading; an existing cache may remain in your browser until site data is cleared.", "The website does not use Google Analytics or other visit analytics tools in its current code. Local storage is used for language and badge preferences; the badge loads only after you accept it. You can change this choice in the privacy control in the footer."] },
+        { title: "5. Retention and security", paragraphs: ["We keep enquiries for as long as needed to respond and follow up, and afterwards only for as long as required by legal obligations or to resolve matters connected with the enquiry. We apply appropriate technical and organisational measures to protect data. Transmission over the Internet cannot be considered entirely risk-free."] },
+        { title: "6. Your rights", paragraphs: ["Under applicable law, you may request access, correction, erasure, restriction or objection and, where applicable, data portability. You may withdraw consent where processing is based on consent, without affecting processing that took place before withdrawal. To exercise your rights, email info@mycarbonai.com.", "You may also lodge a complaint with Portugal’s supervisory authority, the National Data Protection Commission (CNPD)."] },
+        { title: "7. Changes to this notice", paragraphs: ["We may update this notice when the website, form or services change. The version published here applies from the date shown above."] },
       ],
       back: "Back to home",
       other: "Terms of use",
-      missingTitle: "Details needed to finalise this notice",
-      missing: ["Confirm NATASHA SILVESTRE UNIPESSOAL LDA as controller for this landing page", "Company number and full registered office address", "Confirm info@mycarbonai.com as the privacy contact", "Hosting provider, technical logs, legal bases and retention periods", "Purpose, legal basis and retention period for each data item if the form is connected"],
-      authority: "National Data Protection Commission (CNPD)",
+      authority: "https://www.cnpd.pt/cidadaos/direitos/",
     },
     terms: {
-      title: "Terms of Use",
-      intro: "These draft terms cover informational use of this landing page. They do not replace commercial terms for a pilot or any contracted service.",
-      draft: "Draft — responsible organisation details must be confirmed",
-      updated: "Draft created on 5 November 2026",
+      title: "Terms of use",
+      intro: "These terms govern informational use of the MyCarbonAI website.",
+      updated: "Last updated: 6 November 2026",
       sections: [
-        { title: "1. About this website", paragraphs: ["This website introduces MyCarbonAI, its approach and exploration of a partner design pilot for hospitality. The mycarbonai-1.0 version lists NATASHA SILVESTRE UNIPESSOAL LDA as the registered name and info@mycarbonai.com as the general contact; both details need confirmation for this landing page."] },
-        { title: "2. Product and pilot status", paragraphs: ["The website describes a product under validation. The stated pilot scope is to bring operational documents together, structure information, support human review and keep records linked to their sources.", "The pilot is not certification, independent verification or a guarantee of regulatory compliance. This page does not confirm enrolment in a pilot or form a services contract."] },
-        { title: "3. Illustrative data and images", paragraphs: ["Figures, document names, dashboards and examples on this site are illustrative. They do not represent customer results, verified measurements, savings or guaranteed performance.", "Website content is general information and is not legal, technical, financial or environmental advice for a specific operation."] },
-        { title: "4. Use of the website", paragraphs: ["You may use this website for informational purposes. You must not use it unlawfully, interfere with its operation or present website content as a real hotel result without appropriate permission and context.", "Rights in the trademarks, text, images and other materials belong to their respective owners. Access to an item does not grant ownership rights."] },
-        { title: "5. Availability and liability", paragraphs: ["The website is provided as an informational presentation and may change. The responsible organisation, liability limits and applicable conditions must be reviewed and completed before these terms are published as final."] },
-        { title: "6. Governing law and contact", paragraphs: ["The governing law, competent courts and contact details of the responsible organisation are not set in this draft. The organisation operating the site must confirm them before publication."] },
+        { title: "1. Organisation and contact", paragraphs: [`The website is operated by ${entity}, company number (NIPC) 519020804, with registered office at ${address}. Contact: info@mycarbonai.com.`] },
+        { title: "2. Content and product status", paragraphs: ["The website introduces MyCarbonAI’s mission and a pilot being explored with hospitality teams. The planned pilot format is four weeks, one property and one period, subject to an initial assessment and an agreed scope with each participant.", "The pilot work described focuses on bringing operational documents together, structuring information, supporting human review and keeping each record linked to its source. This page does not enrol anyone in a pilot or replace a written agreement between the parties."] },
+        { title: "3. Pilot limits and examples", paragraphs: ["The pilot is not certification, independent verification or a guarantee of regulatory compliance. CO₂e is included only where it can be calculated from available data and factors; the methodology and boundaries must be agreed within the pilot scope.", "Figures, document names and interfaces shown as examples are illustrative. They do not represent customer results, verified measurements, savings or guaranteed performance. Website content is informational and is not legal, technical, financial or environmental advice for a specific operation."] },
+        { title: "4. Acceptable use", paragraphs: ["You may view and share links to this website for lawful, informational purposes. You must not interfere with its operation, attempt unauthorised access to its systems or present illustrative examples as real results."] },
+        { title: "5. Content and availability", paragraphs: ["The brand, text, images and other materials belong to their respective rights holders and may not be reproduced beyond legal exceptions without permission. We aim to keep information clear and up to date, but the website may change, be suspended or become temporarily unavailable."] },
+        { title: "6. Applicable law", paragraphs: ["Use of this website is governed by applicable Portuguese and European law, without prejudice to mandatory consumer-protection or jurisdiction rules that apply in a particular case. Any pilot or contracted service will be governed by a separate agreement."] },
       ],
       back: "Back to home",
       other: "Privacy notice",
-      missingTitle: "Details needed to finalise these terms",
-      missing: ["Confirm the responsible organisation and info@mycarbonai.com as its general contact", "Company number and full registered office address", "Governing law and venue to be confirmed with legal counsel", "Confirmation of rights to the published content"],
-      authority: "",
     },
   },
 };
 
-export function LegalPage({ kind }: { kind: LegalKind }) {
+export function LegalPage({ kind, onPrivacySettings }: { kind: LegalKind; onPrivacySettings: () => void }) {
   const { language, setLanguage, t } = useLanguage();
   const page = copy[language][kind];
   const otherKind: LegalKind = kind === "privacy" ? "terms" : "privacy";
@@ -153,8 +135,7 @@ export function LegalPage({ kind }: { kind: LegalKind }) {
       </header>
       <a href="#conteudo" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-cyan focus:px-3 focus:py-2 focus:text-ink">{t.common.skipContent}</a>
       <main id="conteudo" className="mx-auto max-w-[900px] px-5 py-12 md:px-8 md:py-20">
-        <p className="inline-flex rounded-full bg-amber-100 px-3 py-1.5 text-xs font-bold text-amber-950">{page.draft}</p>
-        <h1 className="mt-5 font-display text-4xl leading-tight md:text-5xl">{page.title}</h1>
+        <h1 className="font-display text-4xl leading-tight md:text-5xl">{page.title}</h1>
         <p className="mt-3 text-sm text-ink/55">{page.updated}</p>
         <p className="mt-8 max-w-3xl text-lg leading-relaxed text-ink/75">{page.intro}</p>
         <div className="mt-10 space-y-8">
@@ -163,22 +144,17 @@ export function LegalPage({ kind }: { kind: LegalKind }) {
               <h2 className="font-display text-xl md:text-2xl">{section.title}</h2>
               <div className="mt-3 space-y-3 text-[0.98rem] leading-relaxed text-ink/75">
                 {section.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
-                {section.bullets && <ul className="list-disc space-y-2 pl-5">{section.bullets.map((item) => <li key={item}>{item}</li>)}</ul>}
+                {section.bullets?.map((item) => <p key={item}>{item}</p>)}
               </div>
             </section>
           ))}
         </div>
-        <aside className="mt-10 rounded-2xl border border-cyan/40 bg-white/60 p-6">
-          <h2 className="font-display text-xl">{page.missingTitle}</h2>
-          <ul className="mt-3 list-disc space-y-2 pl-5 text-sm leading-relaxed text-ink/75">
-            {page.missing.map((item) => <li key={item}>{item}</li>)}
-          </ul>
-        </aside>
-        {page.authority && <p className="mt-6 text-sm text-ink/60"><a href="https://www.cnpd.pt/cidadaos/direitos/" target="_blank" rel="noreferrer" className="underline underline-offset-4">{page.authority}</a></p>}
+        {page.authority && <p className="mt-8 text-sm text-ink/60"><a href={page.authority} target="_blank" rel="noreferrer" className="underline underline-offset-4">Comissão Nacional de Proteção de Dados (CNPD)</a></p>}
         <div className="mt-10 flex flex-wrap gap-5 border-t border-ink/10 pt-6 text-sm font-semibold">
           <a href="/" className="underline underline-offset-4">{page.back}</a>
           <a href={otherHref} className="underline underline-offset-4">{page.other}</a>
           <a href="/?page=imprint" className="underline underline-offset-4">{t.footer.imprint}</a>
+          <button type="button" onClick={onPrivacySettings} className="underline underline-offset-4">{t.privacyOptions.settings}</button>
         </div>
       </main>
       <footer className="border-t border-ink/10 py-6">

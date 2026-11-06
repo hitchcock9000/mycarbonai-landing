@@ -1,8 +1,14 @@
 import { Logo } from "./Logo";
 import { NAV } from "../data/content";
 import { useLanguage } from "../i18n/LanguageProvider";
+import { WebsiteCarbonBadge } from "./WebsiteCarbonBadge";
 
-export function Footer() {
+type FooterProps = {
+  carbonBadgeEnabled: boolean;
+  onPrivacySettings: () => void;
+};
+
+export function Footer({ carbonBadgeEnabled, onPrivacySettings }: FooterProps) {
   const { t } = useLanguage();
   return (
     <footer id="sobre" className="bg-forest-2 py-16 text-white">
@@ -12,6 +18,7 @@ export function Footer() {
           <p className="mt-6 max-w-md text-sm leading-relaxed text-white/65">
             {t.footer.description}
           </p>
+          <WebsiteCarbonBadge enabled={carbonBadgeEnabled} />
         </div>
         <div className="grid grid-cols-2 gap-8">
           <div>
@@ -48,6 +55,7 @@ export function Footer() {
           <a href="/?page=privacy" className="text-white/70 hover:text-cyan">{t.footer.privacy}</a>
           <a href="/?page=terms" className="text-white/70 hover:text-cyan">{t.footer.terms}</a>
           <a href="/?page=imprint" className="text-white/70 hover:text-cyan">{t.footer.imprint}</a>
+          <button type="button" onClick={onPrivacySettings} className="text-left text-white/70 underline-offset-2 hover:text-cyan hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan">{t.privacyOptions.settings}</button>
           <span>{t.footer.tagline}</span>
         </div>
       </div>

@@ -1,15 +1,45 @@
-import { FormEvent, useState } from "react";
+import { useState, type FormEvent } from "react";
 import { IMG } from "../assets/media";
 import { IconArrow } from "./Icons";
 import { useLanguage } from "../i18n/LanguageProvider";
+import { buildMailtoFallback, submitEvaluationRequest, type EvaluationRequest } from "../lib/evaluation-request";
+
+type SubmissionState =
+  | { kind: "sent" }
+  | { kind: "email"; href: string }
+  | null;
 
 export function ContactCTA() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const copy = t.contact;
-  const [sent, setSent] = useState(false);
-  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const [submission, setSubmission] = useState<SubmissionState>(null);
+  const [submitting, setSubmitting] = useState(false);
+
+  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setSent(true);
+    if (submitting) return;
+
+    const formData = new FormData(e.currentTarget);
+    const values: EvaluationRequest = {
+      name: String(formData.get("name") || "").trim(),
+      company: String(formData.get("company") || "").trim(),
+      email: String(formData.get("email") || "").trim(),
+      request: String(formData.get("request") || ""),
+      context: String(formData.get("context") || "").trim(),
+      website: String(formData.get("website") || ""),
+      locale: language,
+    };
+
+    setSubmitting(true);
+    const result = await submitEvaluationRequest(values);
+    setSubmitting(false);
+
+    if (result.ok) {
+      setSubmission({ kind: "sent" });
+      return;
+    }
+
+    setSubmission({ kind: "email", href: buildMailtoFallback(values) });
   };
 
   return (
@@ -37,11 +67,18 @@ export function ContactCTA() {
         </div>
 
         <div className="rounded-3xl bg-ivory p-7 text-ink shadow-2xl md:p-9">
-          {sent ? (
+          {submission ? (
             <div>
-              <p className="kicker text-ink/50">{copy.thanks}</p>
-              <h3 className="mt-3 font-display text-2xl">{copy.received}</h3>
-              <p className="mt-3 text-[0.98rem] leading-relaxed text-ink/75">{copy.response}</p>
+              <p className="kicker text-ink/50" role="status">{submission.kind === "sent" ? copy.thanks : copy.emailFallbackTitle}</p>
+              <h3 className="mt-3 font-display text-2xl">{submission.kind === "sent" ? copy.received : copy.emailFallbackBody}</h3>
+              {submission.kind === "sent" ? (
+                <p className="mt-3 text-[0.98rem] leading-relaxed text-ink/75">{copy.response}</p>
+              ) : (
+                <a href={submission.href} className="btn-primary mt-5">
+                  {copy.emailFallbackAction}
+                  <IconArrow />
+                </a>
+              )}
             </div>
           ) : (
             <form onSubmit={onSubmit} className="space-y-4">
@@ -50,29 +87,41 @@ export function ContactCTA() {
 
               <label className="block">
                 <span className="mb-1.5 block text-sm font-semibold">{copy.name}</span>
-                <input className="input" name="nome" autoComplete="name" required />
+                <input className="input" name="name" autoComplete="name" maxLength={200} required />
               </label>
               <label className="block">
                 <span className="mb-1.5 block text-sm font-semibold">{copy.email}</span>
-                <input className="input" name="email" type="email" autoComplete="email" required />
+                <input className="input" name="email" type="email" autoComplete="email" maxLength={320} required />
               </label>
               <label className="block">
                 <span className="mb-1.5 block text-sm font-semibold">{copy.hotel}</span>
-                <input className="input" name="hotel" autoComplete="organization" required />
+                <input className="input" name="company" autoComplete="organization" maxLength={200} required />
+              </label>
+              <label className="block">
+                <span className="mb-1.5 block text-sm font-semibold">{copy.request}</span>
+                <select className="input" name="request" defaultValue="" required>
+                  <option value="" disabled>{copy.select}</option>
+                  {copy.options.map((option) => <option key={option} value={option}>{option}</option>)}
+                </select>
               </label>
               <label className="block">
                 <span className="mb-1.5 block text-sm font-semibold">
-                  {copy.message} <span className="font-normal text-muted">{copy.optional}</span>
+                  {copy.context} <span className="font-normal text-muted">{copy.optional}</span>
                 </span>
-                <textarea className="input min-h-[6.5rem] resize-y" name="mensagem" rows={4} />
+                <textarea className="input min-h-[6.5rem] resize-y" name="context" rows={4} maxLength={5000} />
               </label>
 
-              <button type="submit" className="btn-primary w-full">
-                {copy.previewSubmit}
-                <IconArrow />
+              <div aria-hidden="true" className="absolute -left-[10000px] top-auto h-px w-px overflow-hidden">
+                <label htmlFor="contact-website">Website</label>
+                <input id="contact-website" name="website" type="text" tabIndex={-1} autoComplete="off" />
+              </div>
+
+              <button type="submit" className="btn-primary w-full" disabled={submitting}>
+                {submitting ? copy.sending : copy.submit}
+                {!submitting && <IconArrow />}
               </button>
               <p className="text-[0.72rem] leading-relaxed text-muted">
-                {copy.privacy} <a href="/?page=privacy" className="font-semibold text-ink underline underline-offset-2">{t.footer.privacy}</a>
+                {copy.privacy} <a href="/?page=privacy" className="font-semibold text-ink underline underline-offset-2">{t.footer.privacy}</a>.
               </p>
             </form>
           )}

@@ -1,0 +1,2 @@
+[functions.evaluation-request]
+verify_jwt = false

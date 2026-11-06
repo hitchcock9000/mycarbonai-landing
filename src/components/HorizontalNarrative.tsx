@@ -171,13 +171,13 @@ function ChapterLandscape() {
   return (
     <div className="relative h-full w-1/5 shrink-0" id="paisagem-desktop">
       <div className="absolute inset-0 flex items-end justify-end p-10 pb-28">
-        <ol className="grid w-full max-w-[36rem] grid-cols-3 gap-6 text-white">
-          {STEPS.slice(0, 3).map((s, i) => (
+        <ol className="grid w-full max-w-[48rem] grid-cols-5 gap-3 text-white">
+          {STEPS.map((s, i) => (
             <li key={s.id}>
-              <p className="font-display text-5xl leading-none text-white/95 xl:text-6xl">{s.num}</p>
-              <p className="mt-2 text-[0.95rem] font-extrabold uppercase tracking-[0.14em]">{t.stepNames[i]}</p>
-              <span className="mt-2 block h-0.5 w-8 bg-cyan" />
-              <p className="mt-3 text-[0.88rem] leading-snug text-white/80">{t.stepTexts[i]}</p>
+              <p className="font-display text-4xl leading-none text-white/95 xl:text-5xl">{s.num}</p>
+              <p className="mt-2 text-xs font-extrabold uppercase tracking-[0.1em] xl:text-sm">{t.stepNames[i]}</p>
+              <span className="mt-2 block h-0.5 w-7 bg-cyan" />
+              <p className="mt-3 text-xs leading-snug text-white/80 xl:text-[0.8rem]">{t.stepTexts[i]}</p>
             </li>
           ))}
         </ol>
@@ -258,7 +258,7 @@ function ChapterDocuments() {
           </div>
 
           <div className="mt-8 flex-1">
-            <DocumentFlow />
+            <DocumentFlow layout="wide" />
           </div>
 
           <ProcessSteps className="mt-auto hidden max-w-4xl lg:grid" compact highlight={1} />
@@ -328,8 +328,8 @@ function MobileNarrative({ onHow }: { onHow: () => void }) {
       </div>
 
       <section id="paisagem" className="bg-forest px-5 py-16 text-white">
-        <ol className="grid gap-10 sm:grid-cols-3">
-          {STEPS.slice(0, 3).map((s, i) => (
+        <ol className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          {STEPS.map((s, i) => (
             <li key={s.id}>
               <p className="font-display text-5xl">{s.num}</p>
               <p className="mt-2 font-extrabold uppercase tracking-[0.14em]">{t.stepNames[i]}</p>

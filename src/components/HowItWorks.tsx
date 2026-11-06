@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, type KeyboardEvent } from "react";
 import { DocumentFlow } from "./DocumentFlow";
-import { IconArrow, IconBolt, IconChart, IconCheck, IconFile, IconLeaf } from "./Icons";
+import { IconArrow, IconBolt, IconChart, IconCheck, IconDrop, IconFile, IconLeaf, IconRecycle } from "./Icons";
 import { useLanguage } from "../i18n/LanguageProvider";
 import { useReducedMotion } from "../hooks/useReducedMotion";
 
@@ -8,7 +8,7 @@ const STEP_ICONS = [IconFile, IconChart, IconLeaf, IconBolt, IconCheck];
 
 export function HowItWorks() {
   const { t } = useLanguage();
-  const [activeStep, setActiveStep] = useState(2);
+  const [activeStep, setActiveStep] = useState(0);
   const [entered, setEntered] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
   const tabRefs = useRef<Array<HTMLButtonElement | null>>([]);
@@ -120,7 +120,9 @@ export function HowItWorks() {
           </div>
 
           <div key={`visual-${activeStep}`} className={`flex min-h-[18rem] items-center rounded-2xl bg-cream p-4 md:min-h-[21rem] md:p-7 ${reducedMotion ? "" : "how-step-enter"}`}>
-            {activeStep < 2 ? (
+            {activeStep === 0 ? (
+              <SourceDocumentsVisual title={step.visualTitle} />
+            ) : activeStep === 1 ? (
               <div className="w-full">
                 <p className="mb-4 text-xs font-semibold uppercase tracking-[0.14em] text-ink/50">{step.visualTitle}</p>
                 <DocumentFlow />
@@ -142,7 +144,15 @@ export function HowItWorks() {
         </div>
 
         <div id="jornada" className="relative mt-12 scroll-mt-28">
-          <div aria-hidden="true" className="absolute left-[10%] right-[10%] top-6 hidden h-px bg-ink/15 md:block" />
+          <div aria-hidden="true" className="pointer-events-none absolute left-[10%] right-[10%] top-9 hidden h-1 overflow-hidden rounded-full bg-ink/20 md:block">
+            <span
+              className="block h-full rounded-full bg-cyan-deep"
+              style={{
+                width: `${(activeStep / (t.stepNames.length - 1)) * 100}%`,
+                transition: reducedMotion ? "none" : "width 420ms cubic-bezier(0.22, 1, 0.36, 1)",
+              }}
+            />
+          </div>
           <div
             role="tablist"
             aria-label={t.journey.progressLabel}
@@ -158,6 +168,7 @@ export function HowItWorks() {
                   type="button"
                   role="tab"
                   aria-selected={selected}
+                  aria-current={selected ? "step" : undefined}
                   id={`how-step-tab-${index}`}
                   aria-controls="how-step-panel"
                   aria-label={`${t.how.phase} ${index + 1}: ${name}`}
@@ -165,9 +176,9 @@ export function HowItWorks() {
                   onClick={() => setActiveStep(index)}
                   onKeyDown={(event) => onTabKeyDown(event, index)}
                   style={entered && !reducedMotion ? { animationDelay: `${index * 55}ms` } : undefined}
-                  className={`group relative z-[1] flex min-w-[8.6rem] snap-center flex-1 flex-col items-center rounded-xl px-2 py-2 text-center outline-none transition focus-visible:ring-2 focus-visible:ring-cyan focus-visible:ring-offset-4 focus-visible:ring-offset-ivory md:min-w-0 ${reveal}`}
+                  className={`group relative z-[1] flex min-w-[8.6rem] snap-center flex-1 flex-col items-center rounded-xl border px-2 py-3 text-center outline-none transition-colors duration-200 md:min-w-0 ${selected ? "border-cyan-deep/25 bg-white shadow-[0_8px_22px_rgba(12,21,36,0.08)]" : "border-transparent hover:border-ink/10 hover:bg-white/65"} ${reveal}`}
                 >
-                  <span className={`grid h-12 w-12 place-items-center rounded-full border shadow-sm transition-colors duration-300 ${selected ? "border-cyan bg-cyan text-ink" : "border-ink/10 bg-white text-ink hover:border-cyan/60"}`}>
+                  <span className={`grid h-12 w-12 place-items-center rounded-full border shadow-sm transition-colors duration-300 group-focus-visible:outline group-focus-visible:outline-2 group-focus-visible:outline-offset-4 group-focus-visible:outline-cyan ${selected ? "border-cyan-deep bg-cyan text-ink shadow-[0_4px_12px_rgba(0,196,212,0.28)]" : "border-ink/15 bg-white text-ink group-hover:border-cyan-deep/50"}`}>
                     <StepIcon className="h-5 w-5" />
                   </span>
                   <span className={`mt-3 text-sm font-bold ${selected ? "text-ink" : "text-ink/70"}`}>{name}</span>
@@ -179,6 +190,36 @@ export function HowItWorks() {
 
       </div>
     </section>
+  );
+}
+
+function SourceDocumentsVisual({ title }: { title: string }) {
+  const { t } = useLanguage();
+  const documents = [
+    { title: t.flow.electricityBill, icon: IconBolt, tone: "text-cyan-deep bg-cyan/10" },
+    { title: t.flow.waterUse, icon: IconDrop, tone: "text-sky-600 bg-sky-50" },
+    { title: t.flow.wasteReport, icon: IconRecycle, tone: "text-emerald-700 bg-emerald-50" },
+  ];
+
+  return (
+    <div className="mx-auto w-full max-w-[34rem]">
+      <p className="mb-4 text-xs font-semibold uppercase tracking-[0.14em] text-ink/50">{title}</p>
+      <ul className="space-y-3" aria-label={title}>
+        {documents.map(({ title: documentTitle, icon: Icon, tone }) => (
+          <li key={documentTitle} className="group flex min-w-0 items-center gap-3 rounded-2xl border border-ink/15 border-l-4 border-l-cyan-deep bg-white px-4 py-3 shadow-[0_10px_28px_rgba(12,21,36,0.1)] transition-shadow hover:shadow-[0_14px_34px_rgba(12,21,36,0.14)] sm:gap-4 sm:px-5">
+            <span className={`grid h-12 w-12 shrink-0 place-items-center rounded-xl ${tone}`}>
+              <Icon className="h-5 w-5" />
+            </span>
+            <span className="min-w-0 flex-1">
+              <span className="block truncate text-sm font-extrabold text-ink sm:text-base">{documentTitle}</span>
+              <span className="mt-1 block text-xs font-medium text-ink/65">{t.illustrative}</span>
+            </span>
+            <span className="shrink-0 rounded-md border border-ink/10 bg-slate-100 px-2.5 py-1.5 text-[0.65rem] font-extrabold tracking-wide text-ink/70">PDF</span>
+          </li>
+        ))}
+      </ul>
+      <p className="mt-4 rounded-xl bg-white/70 px-4 py-3 text-xs leading-relaxed text-ink/65">{t.flow.illustrativeNotice}</p>
+    </div>
   );
 }
 

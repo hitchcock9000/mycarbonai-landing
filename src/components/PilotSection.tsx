@@ -23,16 +23,20 @@ export function PilotSection() {
         <h2 id="produto" className="mt-5 max-w-xl scroll-mt-24 font-display text-4xl leading-[1.1] text-ink lg:text-[2.75rem]">
           {t.pilot.title}
         </h2>
-        <p className="mt-5 max-w-xl text-[1.05rem] leading-relaxed text-ink/75">
+        <p className="mt-5 max-w-2xl text-[1.05rem] leading-relaxed text-ink/75">
           {t.pilot.body}
         </p>
 
-        <ul className="mt-14 grid gap-6 md:grid-cols-3">
+        <p className="mt-5 max-w-3xl rounded-xl border border-cyan-deep/20 bg-white/85 px-4 py-3 text-sm leading-relaxed text-ink/80 shadow-sm">
+          {t.pilot.scope}
+        </p>
+
+        <ul className="mt-10 grid gap-5 md:grid-cols-3">
           {t.pilot.cards.map((item, i) => {
             const Icon = ICONS[i];
             return (
-              <li key={item.title} className="rounded-2xl border border-black/6 bg-white p-7 shadow-sm">
-                <span className="grid h-11 w-11 place-items-center rounded-full bg-cyan/15 text-cyan-deep">
+              <li key={item.title} className="rounded-2xl border border-black/6 bg-white p-6 shadow-sm transition duration-200 hover:-translate-y-0.5 hover:border-cyan-deep/30 hover:shadow-md lg:p-7">
+                <span aria-hidden="true" className="grid h-11 w-11 place-items-center rounded-full bg-cyan/15 text-cyan-deep">
                   <Icon className="h-5 w-5" />
                 </span>
                 <h3 className="mt-5 font-bold text-ink">{item.title}</h3>
