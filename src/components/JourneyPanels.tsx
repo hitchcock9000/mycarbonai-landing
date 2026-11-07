@@ -34,7 +34,7 @@ export function JourneyPanels() {
                 aria-current={isActive ? "step" : undefined}
                 aria-label={`${t.how.phase} ${i + 1}: ${t.stepNames[i]}`}
                 onClick={() => setActiveStep(i)}
-                className="relative z-[2] flex h-full w-full flex-col px-2 pb-36 pt-28 text-left focus-visible:z-30 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-4px] focus-visible:outline-cyan md:px-3 lg:px-4 lg:pt-32"
+                className={`relative z-[2] flex h-full w-full flex-col px-2 pb-36 pt-28 text-left focus-visible:z-30 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-4px] focus-visible:outline-cyan md:px-3 lg:px-4 lg:pt-32 ${i === 0 ? "journey-first-step" : ""}`}
               >
                 <span className="font-display text-3xl leading-none text-white md:text-4xl xl:text-5xl">{step.num}</span>
                 <span className={`mt-2 block h-0.5 w-7 ${isActive ? "bg-cyan" : "bg-cyan/85"}`} />

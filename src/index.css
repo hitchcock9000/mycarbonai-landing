@@ -201,6 +201,24 @@ body {
   );
 }
 
+.journey-chapter-curve {
+  container-type: inline-size;
+  clip-path: polygon(
+    5% 0%,
+    100% 0%,
+    100% 100%,
+    3.5% 100%,
+    2.5% 88%,
+    1.6% 76%,
+    1% 64%,
+    1.2% 52%,
+    1.8% 40%,
+    2.8% 28%,
+    4% 16%,
+    5% 0%
+  );
+}
+
 @media (min-width: 1280px) {
   .chapter-curve {
     clip-path: polygon(
@@ -218,6 +236,7 @@ body {
       12% 0%
     );
   }
+
 }
 
 .grain::after {
@@ -300,6 +319,10 @@ body {
 
 .journey-slice-active .journey-photo {
   filter: saturate(1.02) brightness(0.9);
+}
+
+.journey-first-step {
+  padding-left: clamp(2.5rem, 5cqi, 3.5rem);
 }
 
 .pilot-reveal {

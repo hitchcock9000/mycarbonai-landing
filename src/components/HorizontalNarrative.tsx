@@ -268,7 +268,7 @@ function ChapterDocuments() {
 function ChapterJourney() {
   return (
     <div className="relative h-full w-1/5 shrink-0">
-      <div className="chapter-curve absolute inset-0 overflow-hidden bg-navy">
+      <div className="journey-chapter-curve absolute inset-0 overflow-hidden bg-navy">
         <div className="relative z-[1] h-full">
           <JourneyPanels />
         </div>
