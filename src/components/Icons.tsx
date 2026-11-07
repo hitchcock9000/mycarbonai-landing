@@ -158,6 +158,15 @@ export function IconBuilding({ className }: IconProps) {
   );
 }
 
+export function IconUser({ className }: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" className={cn("h-5 w-5", className)} fill="none" aria-hidden>
+      <circle cx="12" cy="7.5" r="3.5" stroke="currentColor" strokeWidth="1.7" />
+      <path d="M4.5 20c.6-4 3.1-6 7.5-6s6.9 2 7.5 6" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
+    </svg>
+  );
+}
+
 export function IconMenu({ className }: IconProps) {
   return (
     <svg viewBox="0 0 24 24" className={cn("h-6 w-6", className)} fill="none" aria-hidden>
