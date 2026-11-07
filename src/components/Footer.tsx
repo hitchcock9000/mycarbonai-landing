@@ -11,7 +11,7 @@ type FooterProps = {
 export function Footer({ carbonBadgeEnabled, onPrivacySettings }: FooterProps) {
   const { t } = useLanguage();
   return (
-    <footer id="sobre" className="bg-forest-2 py-16 text-white">
+    <footer className="bg-forest-2 py-16 text-white">
       <div className="mx-auto grid max-w-[1200px] gap-12 px-6 md:grid-cols-[1.2fr_0.8fr] lg:px-10">
         <div>
           <Logo showTagline tagline={t.footer.tagline} taglineClassName="text-white/65" />

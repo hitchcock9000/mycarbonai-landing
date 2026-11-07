@@ -32,7 +32,7 @@ export function ChapterNav({
         type="button"
         onClick={onPrev}
         disabled={active <= 0}
-        className={cn("grid h-11 w-11 shrink-0 place-items-center rounded-full transition-colors", hover, "disabled:cursor-not-allowed disabled:opacity-35")}
+        className={cn("grid h-11 w-11 shrink-0 place-items-center rounded-full transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan", hover, "disabled:cursor-not-allowed disabled:opacity-35")}
         aria-label={t.common.prevChapter}
       >
         <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" aria-hidden>
@@ -48,7 +48,7 @@ export function ChapterNav({
             aria-pressed={i === active}
             aria-label={`${t.common.jumpToChapter} ${i + 1}: ${t.chapters[i]}`}
             onClick={() => onDot(i)}
-            className={cn("grid h-11 w-11 shrink-0 place-items-center rounded-full transition-colors", hover)}
+            className={cn("grid h-11 w-11 shrink-0 place-items-center rounded-full transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan", hover)}
           >
             <span
               aria-hidden="true"
@@ -66,7 +66,7 @@ export function ChapterNav({
         type="button"
         onClick={onNext}
         disabled={active >= CHAPTERS.length - 1}
-        className={cn("grid h-11 w-11 shrink-0 place-items-center rounded-full transition-colors", hover, "disabled:cursor-not-allowed disabled:opacity-35")}
+        className={cn("grid h-11 w-11 shrink-0 place-items-center rounded-full transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan", hover, "disabled:cursor-not-allowed disabled:opacity-35")}
         aria-label={t.common.nextChapter}
       >
         <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" aria-hidden>

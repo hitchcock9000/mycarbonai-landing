@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { ContactCTA } from "./components/ContactCTA";
+import { AboutSection } from "./components/AboutSection";
 import { Footer } from "./components/Footer";
 import { FutureVision } from "./components/FutureVision";
 import { Header } from "./components/Header";
@@ -77,6 +78,7 @@ function AppContent() {
         <HowItWorks />
         <PilotSection />
         <FutureVision />
+        <AboutSection />
         <ContactCTA />
       </main>
       <Footer carbonBadgeEnabled={privacyChoice === "allow"} onPrivacySettings={() => setPrivacyOpen(true)} />

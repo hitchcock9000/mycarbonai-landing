@@ -138,10 +138,7 @@ export function HorizontalNarrative({ onChapter }: Props) {
                 <ChapterLandscape />
                 <ChapterHotel />
                 <ChapterDocuments />
-                <ChapterJourney
-                  methodStart={Math.min(2, Math.round((raw / (COUNT - 1)) * 2))}
-                  activeStep={Math.round(raw)}
-                />
+                <ChapterJourney />
                 <ChapterProduct />
               </div>
             </div>
@@ -196,26 +193,26 @@ function ChapterHotel() {
           alt={t.common.hotelDuskAlt}
           className="absolute inset-0 h-full w-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-ivory/40 via-transparent to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-t from-navy/35 via-transparent to-black/10" />
+        <div className="absolute inset-0 bg-gradient-to-r from-navy/85 via-navy/55 to-navy/15" />
+        <div className="absolute inset-0 bg-gradient-to-t from-navy/75 via-transparent to-navy/10" />
 
         <div className="relative z-[1] flex h-full flex-col justify-between pl-[15%] pr-8 pb-28 pt-28 xl:pr-14">
           <div className="max-w-[36rem]">
-            <p className="kicker flex items-center gap-3 text-ink/55">
+            <p className="kicker flex items-center gap-3 text-white/90">
               <span className="inline-block h-0.5 w-8 bg-cyan" />
               {t.hotel.kicker}
             </p>
-            <h2 className="mt-4 font-display text-4xl leading-[1.08] text-ink xl:text-[2.85rem]">
+            <h2 className="mt-4 font-display text-4xl leading-[1.08] text-white xl:text-[2.85rem]">
               {t.hotel.title}
             </h2>
-            <p className="mt-4 max-w-[32rem] text-[1.02rem] leading-relaxed text-ink/75">
+            <p className="mt-4 max-w-[32rem] text-[1.02rem] leading-relaxed text-white/90">
               {t.hotel.body}
             </p>
           </div>
 
           <div>
             <div className="mb-3">
-              <span className="badge-illust bg-white/70 text-ink/60">{t.hotel.illustrativeData}</span>
+              <span className="badge-illust bg-navy/80 text-white">{t.hotel.illustrativeData}</span>
             </div>
             <div className="grid max-w-[44rem] grid-cols-3 gap-3">
               {ILLUSTRATIVE_METRICS.map((m, i) => {
@@ -268,12 +265,12 @@ function ChapterDocuments() {
   );
 }
 
-function ChapterJourney({ methodStart, activeStep }: { methodStart: number; activeStep: number }) {
+function ChapterJourney() {
   return (
     <div className="relative h-full w-1/5 shrink-0">
       <div className="chapter-curve absolute inset-0 overflow-hidden bg-navy">
-        <div className="relative z-[1] h-full pl-[14%]">
-          <JourneyPanels methodStart={methodStart} activeStep={activeStep} />
+        <div className="relative z-[1] h-full">
+          <JourneyPanels />
         </div>
       </div>
     </div>
@@ -290,16 +287,16 @@ function ChapterProduct() {
           alt={t.common.hotelPoolAlt}
           className="absolute inset-0 h-full w-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-ivory/50 via-white/10 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-navy/90 via-navy/60 to-navy/20" />
 
         <div className="relative z-[1] flex h-full flex-col justify-center pl-[15%] pr-8 pb-24 pt-24 xl:pr-14">
           <div className="mb-4 max-w-xl">
-            <p className="kicker flex items-center gap-3 text-ink/70">
+            <p className="kicker flex items-center gap-3 text-white/90">
               <span className="inline-block h-0.5 w-8 bg-cyan" />
               {t.product.kicker}
             </p>
-            <h2 className="mt-3 font-display text-3xl text-ink xl:text-4xl">{t.product.title}</h2>
-            <p className="mt-2 text-sm text-ink/70">
+            <h2 className="mt-3 font-display text-3xl text-white xl:text-4xl">{t.product.title}</h2>
+            <p className="mt-2 text-sm text-white/90">
               {t.product.body}
             </p>
           </div>

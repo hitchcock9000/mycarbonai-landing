@@ -92,31 +92,6 @@ export function HowItWorks() {
             </h3>
             <p className="mt-4 max-w-xl leading-relaxed text-ink/70 md:text-[1.02rem]">{step.body}</p>
 
-            <div className="mt-8 flex items-center justify-between gap-4 border-t border-ink/10 pt-5">
-              <span className="font-mono text-sm font-bold tracking-widest text-ink/65">
-                {String(activeStep + 1).padStart(2, "0")} / {String(t.how.steps.length).padStart(2, "0")}
-              </span>
-              <div className="flex gap-2">
-                <button
-                  type="button"
-                  onClick={() => changeStep(-1)}
-                  disabled={activeStep === 0}
-                  aria-label={t.how.previousStep}
-                  className="grid h-11 w-11 place-items-center rounded-full border border-ink/15 text-ink transition hover:border-cyan hover:bg-cyan/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan disabled:cursor-not-allowed disabled:opacity-35"
-                >
-                  <IconArrow className="rotate-180" />
-                </button>
-                <button
-                  type="button"
-                  onClick={() => changeStep(1)}
-                  disabled={activeStep === t.how.steps.length - 1}
-                  aria-label={t.how.nextStep}
-                  className="grid h-11 w-11 place-items-center rounded-full border border-ink/15 text-ink transition hover:border-cyan hover:bg-cyan/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan disabled:cursor-not-allowed disabled:opacity-35"
-                >
-                  <IconArrow />
-                </button>
-              </div>
-            </div>
           </div>
 
           <div key={`visual-${activeStep}`} className={`flex min-h-[18rem] items-center rounded-2xl bg-cream p-4 md:min-h-[21rem] md:p-7 ${reducedMotion ? "" : "how-step-enter"}`}>
@@ -156,7 +131,7 @@ export function HowItWorks() {
           <div
             role="tablist"
             aria-label={t.journey.progressLabel}
-            className="-mx-5 flex snap-x snap-mandatory gap-3 overflow-x-auto px-5 pb-3 md:mx-0 md:grid md:grid-cols-5 md:gap-2 md:overflow-visible md:px-0"
+            className="grid grid-cols-2 gap-2 pb-3 sm:grid-cols-3 md:grid-cols-5 md:gap-2"
           >
             {t.stepNames.map((name, index) => {
               const StepIcon = STEP_ICONS[index];
@@ -176,7 +151,7 @@ export function HowItWorks() {
                   onClick={() => setActiveStep(index)}
                   onKeyDown={(event) => onTabKeyDown(event, index)}
                   style={entered && !reducedMotion ? { animationDelay: `${index * 55}ms` } : undefined}
-                  className={`group relative z-[1] flex min-w-[8.6rem] snap-center flex-1 flex-col items-center rounded-xl border px-2 py-3 text-center outline-none transition-colors duration-200 md:min-w-0 ${selected ? "border-cyan-deep/25 bg-white shadow-[0_8px_22px_rgba(12,21,36,0.08)]" : "border-transparent hover:border-ink/10 hover:bg-white/65"} ${reveal}`}
+                  className={`group relative z-[1] flex min-w-0 flex-col items-center rounded-xl border px-2 py-3 text-center outline-none transition-colors duration-200 ${selected ? "border-cyan-deep/25 bg-white shadow-[0_8px_22px_rgba(12,21,36,0.08)]" : "border-transparent hover:border-ink/10 hover:bg-white/65"} ${reveal}`}
                 >
                   <span className={`grid h-12 w-12 place-items-center rounded-full border shadow-sm transition-colors duration-300 group-focus-visible:outline group-focus-visible:outline-2 group-focus-visible:outline-offset-4 group-focus-visible:outline-cyan ${selected ? "border-cyan-deep bg-cyan text-ink shadow-[0_4px_12px_rgba(0,196,212,0.28)]" : "border-ink/15 bg-white text-ink group-hover:border-cyan-deep/50"}`}>
                     <StepIcon className="h-5 w-5" />
@@ -187,6 +162,44 @@ export function HowItWorks() {
             })}
           </div>
         </div>
+
+          <nav className="mt-5 flex items-center justify-center gap-1 text-ink sm:gap-2" aria-label={t.journey.progressLabel}>
+            <button
+              type="button"
+              onClick={() => changeStep(-1)}
+              disabled={activeStep === 0}
+              aria-label={t.how.previousStep}
+              className="grid h-9 w-9 shrink-0 place-items-center rounded-full transition hover:bg-ink/5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan disabled:cursor-not-allowed disabled:opacity-35 sm:h-11 sm:w-11"
+            >
+              <IconArrow className="rotate-180" />
+            </button>
+            <div className="flex items-center" role="group" aria-label={t.journey.progressLabel}>
+              {t.stepNames.map((name, index) => (
+                <button
+                  key={name}
+                  type="button"
+                  onClick={() => setActiveStep(index)}
+                  aria-label={`${t.how.phase} ${index + 1}: ${name}`}
+                  aria-pressed={activeStep === index}
+                  className="grid h-9 w-9 shrink-0 place-items-center rounded-full transition hover:bg-ink/5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan sm:h-11 sm:w-11"
+                >
+                  <span className={`block rounded-full transition-all ${activeStep === index ? "h-3 w-3 bg-cyan-deep" : "h-2.5 w-2.5 bg-ink/25"}`} />
+                </button>
+              ))}
+            </div>
+            <span className="min-w-[3.5rem] text-center font-mono text-xs font-bold tabular-nums tracking-[0.12em] text-ink/75" aria-live="polite">
+              {String(activeStep + 1).padStart(2, "0")} / {String(t.how.steps.length).padStart(2, "0")}
+            </span>
+            <button
+              type="button"
+              onClick={() => changeStep(1)}
+              disabled={activeStep === t.how.steps.length - 1}
+              aria-label={t.how.nextStep}
+              className="grid h-9 w-9 shrink-0 place-items-center rounded-full transition hover:bg-ink/5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan disabled:cursor-not-allowed disabled:opacity-35 sm:h-11 sm:w-11"
+            >
+              <IconArrow />
+            </button>
+          </nav>
 
       </div>
     </section>

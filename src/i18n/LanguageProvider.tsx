@@ -5,7 +5,7 @@ export type Language = "pt" | "en";
 const translations = {
   pt: {
     pageTitle: "MyCarbonAI — Inteligência ambiental para hotelaria",
-    metaDescription: "Organize informação sobre energia, água, resíduos e fornecedores para compreender melhor a operação do seu hotel.",
+    metaDescription: "A MyCarbonAI torna a descarbonização mais acessível às empresas. Começamos pela hotelaria, organizando informação sobre energia, água, resíduos e fornecedores para decisões mais informadas.",
     legalTitles: { privacy: "Aviso de Privacidade | MyCarbonAI", terms: "Termos de Utilização | MyCarbonAI", imprint: "Informações Legais | MyCarbonAI" },
     legalDescriptions: { privacy: "Aviso de privacidade da MyCarbonAI.", terms: "Termos de utilização do site MyCarbonAI.", imprint: "Identificação e contactos da entidade responsável pelo site MyCarbonAI." },
     language: "Idioma",
@@ -109,15 +109,25 @@ const translations = {
       nextBody: "Com a base organizada, o hotel pode ver onde está a informação e o que ainda falta.",
     },
     pilot: {
-      kicker: "O piloto",
-      title: "O que o piloto valida.",
-      body: "O piloto de design parceiro serve para testar, com hotéis reais, se esta forma de organizar informação ambiental é útil no dia a dia da operação. Não é um produto acabado.",
-      scope: "Formato previsto: quatro semanas, uma unidade e um período. O resultado pretendido é um registo ambiental com fontes associadas e CO₂e quando seja possível calculá-lo.",
+      kicker: "Piloto de designe parceiro · Em validação",
+      title: "O que o piloto valida",
+      body: "Testamos com uma equipa hoteleira se organizar informação ambiental torna a revisão operacional mais útil e rastreável.",
+      scope: ["4 semanas", "1 unidade hoteleira", "1 período de dados"],
+      scopeNote: "O âmbito final depende dos dados disponíveis e é acordado com o hotel.",
       cards: [
-        { title: "Informação operacional organizada", body: "Documentos de energia, água, resíduos e fornecedores reunidos e estruturados num só sítio." },
-        { title: "Revisão humana da informação", body: "Uma pessoa revê a informação extraída com base nos documentos de origem. Não é uma verificação independente." },
-        { title: "Ligação à origem", body: "Cada registo mantém a ligação ao documento de onde veio." },
+        { title: "Informação organizada", body: "Dados de energia, água, resíduos e fornecedores reunidos num só registo." },
+        { title: "Revisão pela equipa", body: "Uma pessoa da equipa revê os dados extraídos com base nos documentos de origem." },
+        { title: "Rastreabilidade", body: "Cada registo mantém a referência ao documento de onde veio." },
       ],
+      flowLabel: "Fluxo ilustrativo · Sem dados reais",
+      sources: ["Fatura", "Folha de cálculo", "Fornecedor"],
+      recordTitle: "Registo ambiental estruturado",
+      recordSource: "Ligado à fonte",
+      recordReview: "Sujeito a revisão humana",
+      reviewTitle: "Revisão pela equipa",
+      resultLabel: "Resultado pretendido",
+      result: "Um registo ambiental com fontes associadas e CO₂e quando os dados permitem calculá-lo.",
+      caveat: "A revisão da equipa não é uma verificação independente. O piloto é exploratório; não representa resultados de redução nem conformidade garantida.",
     },
     future: {
       badge: "Visão do produto",
@@ -130,6 +140,13 @@ const translations = {
         { title: "Planear ações", body: "Escolher próximos passos com base na informação revista e ligada à origem." },
         { title: "Explorar acompanhamento da evolução", body: "Explorar formas de acompanhar mudanças na operação à medida que novos documentos forem acrescentados." },
       ],
+    },
+    about: {
+      kicker: "Sobre a MyCarbonAI",
+      title: "A ideia começou com uma dúvida simples.",
+      story: "Eu própria não compreendia bem termos como pegada de carbono. Perguntei-me como poderiam as empresas — sobretudo as mais pequenas — tomar decisões ambientais com informação difícil de encontrar e interpretar.",
+      missionTitle: "Medir. Reduzir. Agir. Reportar.",
+      mission: "A nossa missão é tornar a descarbonização mais acessível às empresas. Começamos pela hotelaria, ajudando as equipas a organizar informação ambiental e a perceber melhor o que já sabem e o que ainda falta.",
     },
     contact: {
       kicker: "Piloto de design parceiro",
@@ -187,7 +204,7 @@ const translations = {
   },
   en: {
     pageTitle: "MyCarbonAI — Environmental insight for hospitality",
-    metaDescription: "Organise information about energy, water, waste and suppliers to better understand your hotel operation.",
+    metaDescription: "MyCarbonAI makes decarbonisation more accessible to businesses. We are starting with hospitality, organising information about energy, water, waste and suppliers to support informed decisions.",
     legalTitles: { privacy: "Privacy Notice | MyCarbonAI", terms: "Terms of Use | MyCarbonAI", imprint: "Legal Notice | MyCarbonAI" },
     legalDescriptions: { privacy: "MyCarbonAI privacy notice.", terms: "Terms of use for the MyCarbonAI website.", imprint: "Identity and contact details for the organisation responsible for the MyCarbonAI website." },
     language: "Language",
@@ -291,15 +308,25 @@ const translations = {
       nextBody: "With an organised foundation, the hotel can see what information is available and what is still missing.",
     },
     pilot: {
-      kicker: "The pilot",
-      title: "What the pilot is designed to validate.",
-      body: "The partner design pilot explores with hotels whether this way of organising environmental information is useful in day-to-day operations. It is not a finished product.",
-      scope: "Planned format: four weeks, one property and one reporting period. The intended output is an environmental record with linked sources and CO₂e where it can be calculated.",
+      kicker: "Partner design pilot · In validation",
+      title: "What the pilot is designed to validate",
+      body: "We are testing with a hospitality team whether organising environmental information makes operational review more useful and traceable.",
+      scope: ["4 weeks", "1 hotel property", "1 data period"],
+      scopeNote: "The final scope depends on available data and is agreed with the hotel.",
       cards: [
-        { title: "Organised operational information", body: "Energy, water, waste and supplier documents brought together and structured in one place." },
-        { title: "Human review of extracted information", body: "A person reviews the extracted information against the source documents. This is not independent verification." },
-        { title: "Linked to its source", body: "Each record stays connected to the document it came from." },
+        { title: "Organised information", body: "Energy, water, waste and supplier data brought together in one record." },
+        { title: "Team review", body: "A team member reviews extracted data against the source documents." },
+        { title: "Traceability", body: "Each record keeps a reference to the document it came from." },
       ],
+      flowLabel: "Illustrative flow · No real data",
+      sources: ["Bill", "Spreadsheet", "Supplier"],
+      recordTitle: "Structured environmental record",
+      recordSource: "Linked to source",
+      recordReview: "Subject to human review",
+      reviewTitle: "Team review",
+      resultLabel: "Intended output",
+      result: "An environmental record with linked sources and CO₂e where the data allows it to be calculated.",
+      caveat: "Team review is not independent verification. The pilot is exploratory; it does not represent emissions reductions or guarantee compliance.",
     },
     future: {
       badge: "Product direction",
@@ -312,6 +339,13 @@ const translations = {
         { title: "Plan actions", body: "Choose next steps using information that has been reviewed and linked to its source." },
         { title: "Explore progress tracking", body: "Explore ways to follow operational changes as new documents are added." },
       ],
+    },
+    about: {
+      kicker: "About MyCarbonAI",
+      title: "It started with a simple question.",
+      story: "I did not initially understand terms such as carbon footprint. I wondered how businesses — especially smaller ones — could make environmental decisions when the information was difficult to find and understand.",
+      missionTitle: "Measure. Reduce. Act. Report.",
+      mission: "Our mission is to make decarbonisation more accessible to businesses. We are starting with hospitality, helping teams organise environmental information and better understand what they know and what is still missing.",
     },
     contact: {
       kicker: "Partner design pilot",
@@ -398,7 +432,12 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     const legalKind = legalPage === "privacy" || legalPage === "terms" || legalPage === "imprint" ? legalPage : null;
     document.title = legalKind ? translations[language].legalTitles[legalKind] : translations[language].pageTitle;
     const description = document.querySelector<HTMLMetaElement>('meta[name="description"]');
-    description?.setAttribute("content", legalKind ? translations[language].legalDescriptions[legalKind] : translations[language].metaDescription);
+    const pageDescription = legalKind ? translations[language].legalDescriptions[legalKind] : translations[language].metaDescription;
+    description?.setAttribute("content", pageDescription);
+    document.querySelector<HTMLMetaElement>('meta[property="og:title"]')?.setAttribute("content", document.title);
+    document.querySelector<HTMLMetaElement>('meta[property="og:description"]')?.setAttribute("content", pageDescription);
+    document.querySelector<HTMLMetaElement>('meta[name="twitter:title"]')?.setAttribute("content", document.title);
+    document.querySelector<HTMLMetaElement>('meta[name="twitter:description"]')?.setAttribute("content", pageDescription);
   }, [language]);
 
   const value = useMemo(() => ({ language, setLanguage, t: translations[language] }), [language]);
