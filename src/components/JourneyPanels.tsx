@@ -48,7 +48,7 @@ export function JourneyPanels() {
         })}
       </div>
 
-      <nav className="absolute bottom-[5.25rem] left-0 right-0 z-30 flex items-center justify-center gap-1 rounded-full bg-navy/55 py-1 text-white backdrop-blur-sm sm:gap-2" aria-label={t.journey.progressLabel}>
+      <nav className="absolute bottom-[5.25rem] left-1/2 z-30 flex w-fit max-w-[calc(100%-1rem)] -translate-x-1/2 items-center justify-center gap-1 rounded-full bg-navy/75 px-2 py-1 text-white shadow-lg shadow-black/20 backdrop-blur-sm sm:gap-2" aria-label={t.journey.progressLabel}>
         <button
           type="button"
           onClick={() => move(-1)}

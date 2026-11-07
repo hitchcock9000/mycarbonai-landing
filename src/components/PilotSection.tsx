@@ -98,7 +98,7 @@ function PilotFlow({ entered }: { entered: boolean }) {
         {t.pilot.flowLabel}
       </figcaption>
 
-      <div className="grid grid-cols-1 items-stretch gap-3 sm:grid-cols-[minmax(7.5rem,0.8fr)_2rem_minmax(11rem,1.35fr)_2rem_minmax(7.5rem,0.8fr)] sm:gap-2">
+      <div className="grid grid-cols-1 items-stretch gap-3 sm:grid-cols-[minmax(7.5rem,0.8fr)_2.75rem_minmax(11rem,1.35fr)_2.75rem_minmax(7.5rem,0.8fr)] sm:gap-3">
         <ul className="flex flex-col justify-center gap-2.5" aria-label={t.pilot.sources.join(", ")}>
           {t.pilot.sources.map((source) => (
             <li key={source} className="flex min-h-12 items-center gap-2.5 rounded-xl border border-ink/10 bg-white px-3 py-2.5 text-sm font-bold text-ink shadow-sm">
@@ -140,11 +140,9 @@ function PilotFlow({ entered }: { entered: boolean }) {
 
 function FlowConnector({ className = "" }: { className?: string }) {
   return (
-    <svg className={`pilot-flow-connector h-full w-full ${className}`} viewBox="0 0 32 120" preserveAspectRatio="none" aria-hidden="true">
-      <path pathLength="1" d="M0 20 H10 Q22 20 22 40 V60 H30" />
-      <path pathLength="1" d="M0 60 H30" />
-      <path pathLength="1" d="M0 100 H10 Q22 100 22 80 V60" />
-      <path pathLength="1" d="M25 55 L30 60 L25 65" />
+    <svg className={`pilot-flow-connector h-6 w-full self-center ${className}`} viewBox="0 0 40 24" preserveAspectRatio="none" aria-hidden="true">
+      <path pathLength="1" d="M2 12 H34" />
+      <path pathLength="1" d="M28 6 L34 12 L28 18" />
     </svg>
   );
 }
