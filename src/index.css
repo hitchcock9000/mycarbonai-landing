@@ -302,10 +302,6 @@ body {
   filter: saturate(1.02) brightness(0.9);
 }
 
-.journey-first-step {
-  padding-left: clamp(4rem, 6vw, 7rem);
-}
-
 .pilot-reveal {
   animation: pilotReveal 420ms cubic-bezier(0.22, 1, 0.36, 1) both;
 }
