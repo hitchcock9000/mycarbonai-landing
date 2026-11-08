@@ -11,7 +11,7 @@ npm run dev
 
 ## Contact form
 
-The contact form submits to the existing Supabase `evaluation-request` function used by MyCarbonAI 1.0. Copy `.env.example` to `.env.local` and provide the Supabase project URL and publishable key to enable direct submission. If these values are not configured, or the request cannot be completed, the form offers an email draft addressed to `info@mycarbonai.com` instead.
+The contact form submits to the existing Supabase `evaluation-request` function used by MyCarbonAI 1.0. Copy `.env.example` to `.env.local` and provide the Supabase project URL and publishable key to enable direct submission. If these values are not configured, or the request cannot be completed, the form offers an email draft addressed to `partnerships@mycarbonai.com` instead. General enquiries use `hello@mycarbonai.com`; privacy requests use `privacy@mycarbonai.com`.
 
 Only the public/publishable Supabase key belongs in this frontend configuration. Never add the Supabase service-role key or Resend API key here; those remain server-side secrets in Supabase.
 

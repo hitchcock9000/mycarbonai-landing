@@ -11,6 +11,8 @@
 //  - Copy alinhada com a landing e o About: produto em validação, sem
 //    promessas de plataforma, demo, certificação ou features beta.
 
+import { GENERAL_CONTACT_EMAIL } from "./contact.ts";
+
 export const BRAND = {
   ink: "#000e23",
   cyan: "#00dad8",
@@ -219,7 +221,7 @@ export function confirmationEmail(
           <tr>
             <td style="background-color:${BRAND.paper};padding:22px 32px;border-top:1px solid #e3e8ea;">
               <p style="margin:0 0 6px;font:400 12px/1.6 ${SANS};color:${BRAND.muted};">
-                <a href="mailto:info@mycarbonai.com" style="color:${BRAND.muted};text-decoration:none;">info@mycarbonai.com</a>
+                <a href="mailto:${GENERAL_CONTACT_EMAIL}" style="color:${BRAND.muted};text-decoration:none;">${GENERAL_CONTACT_EMAIL}</a>
               </p>
               <p style="margin:0;font:400 11px/1.6 ${SANS};color:#93a2ad;">${c.footer}</p>
             </td>

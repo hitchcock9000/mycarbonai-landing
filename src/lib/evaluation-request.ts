@@ -1,5 +1,7 @@
 /// <reference types="vite/client" />
 
+import { CONTACT_EMAILS } from "../config/contact";
+
 export type EvaluationRequest = {
   name: string;
   company: string;
@@ -70,5 +72,5 @@ export function buildMailtoFallback(values: EvaluationRequest): string {
     `${english ? "Context" : "Contexto"}:`,
     values.context || "—",
   ].join("\n"));
-  return `mailto:info@mycarbonai.com?subject=${subject}&body=${body}`;
+  return `mailto:${CONTACT_EMAILS.partnerships}?subject=${subject}&body=${body}`;
 }

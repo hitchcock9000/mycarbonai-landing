@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
+import { CONTACT_EMAILS } from "../config/contact";
 
 export type Language = "pt" | "en";
 
@@ -164,7 +165,7 @@ const translations = {
       body: "O piloto serve para organizar informação operacional — energia, água, resíduos e fornecedores — e perceber, em conjunto, se esta base é útil. Sem compromisso de resultados ambientais.",
       bullets: ["Pensado para equipas de hotelaria, manutenção e sustentabilidade.", "Começa pelos documentos que o hotel já tem.", "Os valores de exemplo nesta página são ilustrativos."],
       received: "O seu pedido foi registado.",
-      response: "A equipa MyCarbonAI irá analisar o pedido e responder para o email indicado. Se não receber resposta, escreva para info@mycarbonai.com.",
+      response: `A equipa MyCarbonAI irá analisar o pedido e responder para o email indicado. Se não receber resposta, escreva para ${CONTACT_EMAILS.partnerships}.`,
       formTitle: "Pedir uma conversa",
       formIntro: "Conte-nos um pouco sobre o seu hotel e sobre a informação ambiental que procura organizar.",
       name: "Nome",
@@ -373,7 +374,7 @@ const translations = {
       body: "The pilot brings operational information — energy, water, waste and suppliers — together so we can assess whether this foundation is useful. No environmental results are promised.",
       bullets: ["Designed for hospitality, facilities and sustainability teams.", "Starts with the documents the hotel already has.", "Examples on this page are illustrative."],
       received: "Your request has been recorded.",
-      response: "The MyCarbonAI team will review your request and reply to the email provided. If you do not hear back, write to info@mycarbonai.com.",
+      response: `The MyCarbonAI team will review your request and reply to the email provided. If you do not hear back, write to ${CONTACT_EMAILS.partnerships}.`,
       formTitle: "Request a conversation",
       formIntro: "Tell us a little about your hotel and the environmental information you want to organise.",
       name: "Name",

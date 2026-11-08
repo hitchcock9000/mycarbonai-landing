@@ -17,7 +17,7 @@
 //
 // Segredos necessários (supabase secrets set):
 //   RESEND_API_KEY      obrigatório
-//   RESEND_FROM         ex.: "MyCarbonAI <info@mycarbonai.com>"
+//   RESEND_FROM         remetente validado no Resend
 //   RESEND_INTERNAL     destino da notificação interna
 //   ALLOWED_ORIGINS     lista separada por vírgulas (opcional)
 // SUPABASE_URL e SUPABASE_SERVICE_ROLE_KEY são injectados pela plataforma.
@@ -25,6 +25,7 @@
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { createClient } from "npm:@supabase/supabase-js@2";
 import { confirmationEmail, internalEmail, type Locale, type Submission } from "./emails.ts";
+import { DEFAULT_RESEND_FROM, DEFAULT_RESEND_INTERNAL } from "./contact.ts";
 
 const DEFAULT_ORIGINS = [
   "https://mycarbonai.com",
@@ -277,8 +278,8 @@ Deno.serve(async (req: Request) => {
   }
 
   const contactId = inserted.id as string;
-  const from = Deno.env.get("RESEND_FROM") ?? "MyCarbonAI <info@mycarbonai.com>";
-  const internalTo = Deno.env.get("RESEND_INTERNAL") ?? "info@mycarbonai.com";
+  const from = Deno.env.get("RESEND_FROM") ?? DEFAULT_RESEND_FROM;
+  const internalTo = Deno.env.get("RESEND_INTERNAL") ?? DEFAULT_RESEND_INTERNAL;
 
   // O registo já está gravado. Falhar o email não deve perder o contacto, por
   // isso o erro é anotado na linha em vez de devolver 500 ao visitante.
