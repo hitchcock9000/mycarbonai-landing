@@ -123,7 +123,7 @@ export function HowItWorks() {
               </span>
               <p className="mt-3 max-w-lg text-sm leading-relaxed text-ink/65 md:text-base">{step.futureText}</p>
             </div>
-            <div key={`illustration-${activeStep}`} className={reducedMotion ? "" : "how-step-enter"}>
+            <div key={`illustration-${activeStep}`} className={`min-w-0 ${reducedMotion ? "" : "how-step-enter"}`}>
               <PhaseIllustration index={activeStep} labels={t.how.diagram} stage={t.stepNames[activeStep]} />
             </div>
           </div>
@@ -187,12 +187,12 @@ function PhaseIllustration({ index, labels, stage }: { index: number; labels: Di
 
 function IdentifyDiagram({ labels }: { labels: DiagramLabels }) {
   return (
-    <div className="grid w-full max-w-[42rem] grid-cols-[minmax(0,0.8fr)_auto_minmax(0,1fr)] items-center gap-2 sm:gap-4">
-      <div className="space-y-2.5">
-        {labels.sources.map((source) => <div key={source} className="flex min-h-12 items-center gap-2 rounded-xl border border-ink/10 bg-white px-2.5 text-xs font-bold text-ink shadow-sm sm:min-h-14 sm:gap-3 sm:px-4 sm:text-sm"><IconFile className="h-4 w-4 shrink-0 text-cyan-deep sm:h-5 sm:w-5" />{source}</div>)}
+    <div className="flex w-full max-w-[42rem] min-w-0 flex-col items-stretch gap-3 md:grid md:grid-cols-[minmax(0,0.8fr)_auto_minmax(0,1fr)] md:items-center md:gap-4">
+      <div className="min-w-0 space-y-2.5">
+        {labels.sources.map((source) => <div key={source} className="flex min-h-12 min-w-0 items-center gap-2 rounded-xl border border-ink/10 bg-white px-2.5 text-xs font-bold text-ink shadow-sm sm:min-h-14 sm:gap-3 sm:px-4 sm:text-sm"><IconFile className="h-4 w-4 shrink-0 text-cyan-deep sm:h-5 sm:w-5" /><span className="min-w-0 break-words">{source}</span></div>)}
       </div>
       <FlowArrow />
-      <div className="rounded-2xl border border-ink/20 bg-white shadow-sm">
+      <div className="min-w-0 rounded-2xl border border-ink/20 bg-white shadow-sm">
         <div className="rounded-t-2xl border-b border-cyan/50 bg-cyan/15 px-3 py-2 text-xs font-extrabold text-ink sm:px-4 sm:text-sm">{labels.record}</div>
         <div className="space-y-3 p-3 sm:p-4">
           <p className="flex items-center gap-2 text-xs font-semibold text-ink/75 sm:text-sm"><IconLink className="h-4 w-4 shrink-0 text-cyan-deep" />{labels.linked}</p>
@@ -205,12 +205,12 @@ function IdentifyDiagram({ labels }: { labels: DiagramLabels }) {
 
 function MeasureDiagram({ labels }: { labels: DiagramLabels }) {
   return (
-    <div className="grid w-full max-w-[42rem] grid-cols-[minmax(0,1fr)_auto_auto] items-center gap-2 sm:gap-4">
-      <div className="overflow-hidden rounded-xl border border-ink/20 bg-white">
-        <div className="grid grid-cols-4 border-b border-ink/10 bg-cyan/15 px-2 py-2 text-[0.62rem] font-extrabold text-ink sm:px-3 sm:text-xs">
+    <div className="flex w-full max-w-[42rem] min-w-0 flex-col items-stretch gap-3 md:grid md:grid-cols-[minmax(0,1fr)_auto_auto] md:items-center md:gap-4">
+      <div className="min-w-0 overflow-hidden rounded-xl border border-ink/20 bg-white">
+        <div className="grid grid-cols-4 border-b border-ink/10 bg-cyan/15 px-1.5 py-2 text-[0.58rem] font-extrabold leading-tight text-ink sm:px-3 sm:text-xs">
           <span>{labels.resource}</span><span>{labels.period}</span><span>{labels.source}</span><span>{labels.value}</span>
         </div>
-        {[IconBolt, IconDrop, IconRecycle].map((ResourceIcon, i) => <div key={i} className="grid min-h-12 grid-cols-4 items-center border-b border-ink/10 px-2 last:border-0 sm:px-3"><span className="text-cyan-deep"><ResourceIcon className="h-4 w-4" /></span><span className="h-1.5 w-8 rounded-full bg-ink/15 sm:w-12" /><span className="mx-auto text-ink/65"><IconLink className="h-4 w-4" /></span><span className="h-1.5 w-8 rounded-full bg-ink/15 sm:w-12" /></div>)}
+        {[IconBolt, IconDrop, IconRecycle].map((ResourceIcon, i) => <div key={i} className="grid min-h-12 grid-cols-4 items-center border-b border-ink/10 px-1.5 last:border-0 sm:px-3"><span className="text-cyan-deep"><ResourceIcon className="h-4 w-4" /></span><span className="h-1.5 w-8 rounded-full bg-ink/15 sm:w-12" /><span className="mx-auto text-ink/65"><IconLink className="h-4 w-4" /></span><span className="h-1.5 w-8 rounded-full bg-ink/15 sm:w-12" /></div>)}
       </div>
       <FlowArrow />
       <div className="rounded-xl border border-cyan-deep/40 bg-white px-3 py-3 text-center text-xs font-extrabold text-ink sm:px-5 sm:py-4 sm:text-sm">CO₂e<br /><span className="font-semibold text-ink/65">{labels.value}</span></div>
@@ -220,7 +220,7 @@ function MeasureDiagram({ labels }: { labels: DiagramLabels }) {
 
 function ReduceDiagram({ labels }: { labels: DiagramLabels }) {
   return (
-    <div className="w-full max-w-[40rem] rounded-2xl border border-ink/20 bg-white p-4 sm:p-6">
+    <div className="w-full min-w-0 max-w-[40rem] rounded-2xl border border-ink/20 bg-white p-4 sm:p-6">
       <div className="flex flex-wrap gap-3 text-xs font-bold text-ink sm:text-sm"><span className="inline-flex items-center gap-2"><IconBolt className="text-cyan-deep" />{labels.sources[0]}</span><span className="inline-flex items-center gap-2"><IconDrop className="text-cyan-deep" />{labels.sources[1]}</span></div>
       <div className="relative mt-5 flex h-28 items-center justify-center overflow-hidden rounded-xl bg-cream sm:h-36">
         <svg viewBox="0 0 500 140" className="h-full w-full" aria-hidden="true"><path d="M10 82 C75 30, 105 120, 170 72 S260 110, 320 60 S415 100, 490 50" fill="none" stroke="#0b1526" strokeWidth="3" /><path d="M10 112 C75 75, 105 125, 170 95 S260 115, 320 80 S415 118, 490 90" fill="none" stroke="#00c4d4" strokeWidth="3" /></svg>
@@ -233,10 +233,10 @@ function ReduceDiagram({ labels }: { labels: DiagramLabels }) {
 
 function ActDiagram({ labels }: { labels: DiagramLabels }) {
   return (
-    <div className="grid w-full max-w-[40rem] grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-2 sm:gap-4">
-      <div className="grid h-36 place-items-center rounded-xl border border-ink/20 bg-white sm:h-44"><div className="text-center text-ink/70"><IconBuilding className="mx-auto h-10 w-10 text-ink" /><span className="mt-2 block max-w-28 text-xs font-bold sm:text-sm">{labels.teamDecision}</span></div></div>
+    <div className="flex w-full max-w-[40rem] flex-col items-stretch gap-3 md:grid md:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] md:items-center md:gap-4">
+      <div className="grid min-w-0 h-36 place-items-center rounded-xl border border-ink/20 bg-white sm:h-44"><div className="text-center text-ink/70"><IconBuilding className="mx-auto h-10 w-10 text-ink" /><span className="mt-2 block max-w-28 text-xs font-bold sm:text-sm">{labels.teamDecision}</span></div></div>
       <FlowArrow />
-      <div className="rounded-xl border border-ink/20 bg-white px-3 sm:px-4">
+      <div className="min-w-0 rounded-xl border border-ink/20 bg-white px-3 sm:px-4">
         {[labels.teamDecision, labels.owner, labels.nextReview].map((item, i) => <div key={item} className="flex min-h-11 items-center gap-2 border-b border-ink/10 text-[0.65rem] font-bold text-ink last:border-0 sm:min-h-12 sm:gap-3 sm:text-xs">{i === 0 ? <IconCheck className="h-4 w-4 text-cyan-deep" /> : i === 1 ? <IconUser className="h-4 w-4" /> : <IconChart className="h-4 w-4" />}{item}</div>)}
       </div>
     </div>
@@ -245,10 +245,10 @@ function ActDiagram({ labels }: { labels: DiagramLabels }) {
 
 function ReportDiagram({ labels }: { labels: DiagramLabels }) {
   return (
-    <div className="grid w-full max-w-[40rem] grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-2 sm:gap-4">
-      <div className="space-y-2.5">{labels.sources.map((source) => <div key={source} className="flex min-h-11 items-center gap-2 rounded-xl border border-ink/15 bg-white px-2.5 text-xs font-bold text-ink sm:min-h-12 sm:gap-3 sm:px-4 sm:text-sm"><IconFile className="h-4 w-4 shrink-0 text-cyan-deep" />{source}<IconLink className="ml-auto h-4 w-4 shrink-0 text-cyan-deep" /></div>)}</div>
+    <div className="flex w-full max-w-[40rem] min-w-0 flex-col items-stretch gap-3 md:grid md:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] md:items-center md:gap-4">
+      <div className="min-w-0 space-y-2.5">{labels.sources.map((source) => <div key={source} className="flex min-h-11 min-w-0 items-center gap-2 rounded-xl border border-ink/15 bg-white px-2.5 text-xs font-bold text-ink sm:min-h-12 sm:gap-3 sm:px-4 sm:text-sm"><IconFile className="h-4 w-4 shrink-0 text-cyan-deep" /><span className="min-w-0 break-words">{source}</span><IconLink className="ml-auto h-4 w-4 shrink-0 text-cyan-deep" /></div>)}</div>
       <FlowArrow />
-      <div className="rounded-xl border border-ink/20 bg-white p-3 sm:p-4">
+      <div className="min-w-0 rounded-xl border border-ink/20 bg-white p-3 sm:p-4">
         <span className="mb-2 inline-flex rounded-full bg-cyan/15 px-2.5 py-1 text-[0.6rem] font-extrabold text-ink/70">{labels.reportDraft}</span>
         <div className="flex items-start gap-2"><IconFile className="mt-0.5 h-5 w-5 shrink-0 text-ink" /><div className="w-full space-y-2"><span className="block h-1.5 w-3/4 rounded-full bg-ink/65" /><span className="block h-1 w-full rounded-full bg-ink/15" /><span className="block h-1 w-5/6 rounded-full bg-ink/15" /><span className="block h-1 w-2/3 rounded-full bg-ink/15" /></div></div>
         <p className="mt-3 text-[0.65rem] font-semibold leading-snug text-ink/65 sm:text-xs">{labels.reportPrep}</p>
@@ -258,5 +258,5 @@ function ReportDiagram({ labels }: { labels: DiagramLabels }) {
 }
 
 function FlowArrow() {
-  return <IconArrow className="h-5 w-5 shrink-0 text-cyan-deep sm:h-6 sm:w-6" />;
+  return <IconArrow className="mx-auto h-5 w-5 shrink-0 rotate-90 text-cyan-deep sm:h-6 sm:w-6 md:rotate-0" />;
 }

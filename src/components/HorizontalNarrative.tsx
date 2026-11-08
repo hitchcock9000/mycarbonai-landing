@@ -43,7 +43,7 @@ export function HorizontalNarrative({ onChapter }: Props) {
       if (!el) return;
       const next = Math.min(COUNT - 1, Math.max(0, index));
       if (!pinned) {
-        const mobileIds = ["paisagem", "hotelaria", "documentos", "jornada-hero", "produto-hero"];
+        const mobileIds = ["topo", "hotelaria", "como-funciona", "jornada", "produto-hero"];
         document.getElementById(mobileIds[next] ?? CHAPTERS[next].id)?.scrollIntoView({
           behavior: reduced ? "auto" : "smooth",
           block: "start",
@@ -324,19 +324,6 @@ function MobileNarrative({ onHow }: { onHow: () => void }) {
         </div>
       </div>
 
-      <section id="paisagem" className="bg-forest px-5 py-16 text-white">
-        <ol className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          {STEPS.map((s, i) => (
-            <li key={s.id}>
-              <p className="font-display text-5xl">{s.num}</p>
-              <p className="mt-2 font-extrabold uppercase tracking-[0.14em]">{t.stepNames[i]}</p>
-              <span className="mt-2 block h-0.5 w-8 bg-cyan" />
-              <p className="mt-3 text-white/75">{t.stepTexts[i]}</p>
-            </li>
-          ))}
-        </ol>
-      </section>
-
       <section id="hotelaria" className="relative overflow-hidden">
         <img src={IMG.hotelDusk} alt="" className="absolute inset-0 h-full w-full object-cover" />
         <div className="absolute inset-0 bg-navy/35" />
@@ -365,42 +352,6 @@ function MobileNarrative({ onHow }: { onHow: () => void }) {
             })}
           </div>
         </div>
-      </section>
-
-      <section id="documentos" className="bg-cream px-5 py-16">
-        <p className="kicker flex items-center gap-3 text-ink/55">
-          <span className="inline-block h-0.5 w-8 bg-cyan" />
-          {t.flow.kicker}
-        </p>
-        <h2 className="mt-4 font-display text-3xl leading-tight text-ink">
-          {t.flow.title}
-        </h2>
-        <p className="mt-3 max-w-xl text-ink/75">
-          {t.flow.body}
-        </p>
-        <div className="mt-10">
-          <DocumentFlow />
-        </div>
-        <ProcessSteps className="mt-12" compact />
-      </section>
-
-      <section id="jornada-hero" className="bg-ivory px-5 py-16">
-        <p className="kicker flex items-center gap-3 text-ink/55">
-          <span className="inline-block h-0.5 w-8 bg-cyan" />
-          {t.journey.kicker}
-        </p>
-        <h2 className="mt-4 font-display text-3xl text-ink">{t.journey.title}</h2>
-        <ol className="mt-10 space-y-8">
-          {STEPS.map((s, i) => (
-            <li key={s.id} className="flex gap-4">
-              <span className="font-display text-3xl text-cyan-deep">{s.num}</span>
-              <div>
-                <h3 className="font-bold text-ink">{t.stepNames[i]}</h3>
-                <p className="mt-1 text-sm text-muted">{t.stepTexts[i]}</p>
-              </div>
-            </li>
-          ))}
-        </ol>
       </section>
 
       <section id="produto-hero" className="relative overflow-hidden bg-navy px-5 py-16">
