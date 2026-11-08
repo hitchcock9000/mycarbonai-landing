@@ -366,7 +366,7 @@ function MobileNarrative({ onHow }: { onHow: () => void }) {
         <div className="mt-8">
           <Dashboard />
         </div>
-        <a href="#piloto" className="btn-primary mt-8">
+        <a href="/piloto" className="btn-primary mt-8">
           {t.ctaPilot}
           <IconArrow />
         </a>

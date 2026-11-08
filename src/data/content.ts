@@ -10,11 +10,11 @@ export const COPY = {
 };
 
 export const NAV = [
-  { id: "hotelaria", label: "Hotelaria", href: "#piloto" },
-  { id: "como-funciona", label: "Como funciona", href: "#como-funciona" },
-  { id: "jornada", label: "Jornada", href: "#jornada" },
-  { id: "produto", label: "Produto", href: "#produto" },
-  { id: "sobre", label: "Sobre", href: "#sobre" },
+  { id: "hotelaria", label: "Hotelaria", href: "/hotelaria" },
+  { id: "como-funciona", label: "Como funciona", href: "/como-funciona" },
+  { id: "jornada", label: "Jornada", href: "/jornada" },
+  { id: "produto", label: "Produto", href: "/produto" },
+  { id: "sobre", label: "Sobre", href: "/sobre" },
 ] as const;
 
 export const STEPS = [

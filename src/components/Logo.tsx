@@ -18,7 +18,7 @@ export function Logo({
   showTagline = false,
   taglineClassName,
   tagline,
-  href = "#topo",
+  href = "/",
 }: LogoProps) {
   const { t } = useLanguage();
   return (

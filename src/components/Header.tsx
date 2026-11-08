@@ -88,7 +88,7 @@ export function Header({
               </button>
             ))}
           </div>
-          <a href="#piloto" className="btn-primary btn-sm hidden sm:inline-flex" onClick={() => setOpen(false)}>
+          <a href="/piloto" className="btn-primary btn-sm hidden sm:inline-flex" onClick={() => setOpen(false)}>
             {t.ctaPilot}
             <IconArrow />
           </a>
@@ -131,7 +131,7 @@ export function Header({
                 {t.nav[index]}
               </a>
             ))}
-            <a href="#piloto" className="btn-primary mt-3" onClick={() => setOpen(false)}>
+            <a href="/piloto" className="btn-primary mt-3" onClick={() => setOpen(false)}>
               {t.ctaPilot}
               <IconArrow />
             </a>

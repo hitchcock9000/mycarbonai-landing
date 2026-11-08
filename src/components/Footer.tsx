@@ -35,7 +35,7 @@ export function Footer({ carbonBadgeEnabled, onPrivacySettings }: FooterProps) {
                 </li>
               ))}
               <li>
-                <a href="#piloto" className="text-sm text-white/80 hover:text-cyan">
+                <a href="/piloto" className="text-sm text-white/80 hover:text-cyan">
                   {t.ctaPilot}
                 </a>
               </li>

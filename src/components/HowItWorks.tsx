@@ -141,7 +141,7 @@ export function HowItWorks() {
               <span className="ml-2 min-w-[3.5rem] text-center font-mono text-xs font-bold tabular-nums tracking-[0.12em] text-ink/75" aria-live="polite">{String(activeStep + 1).padStart(2, "0")} / {String(totalSteps).padStart(2, "0")}</span>
             </div>
             {isLastStep ? (
-              <a href="#piloto" className="btn-primary inline-flex min-h-11 items-center gap-2 px-5 text-sm">{t.how.explorePilot}<IconArrow /></a>
+              <a href="/piloto" className="btn-primary inline-flex min-h-11 items-center gap-2 px-5 text-sm">{t.how.explorePilot}<IconArrow /></a>
             ) : (
               <button type="button" onClick={() => changeStep(1)} aria-label={t.how.nextStep} className="inline-flex min-h-11 items-center gap-2 rounded-full bg-cyan px-5 py-2 text-sm font-bold text-ink transition-colors hover:bg-cyan-deep focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan">{t.how.nextStep}<IconArrow /></button>
             )}

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ContactCTA } from "./components/ContactCTA";
 import { AboutSection } from "./components/AboutSection";
 import { Footer } from "./components/Footer";
@@ -25,10 +25,35 @@ function readPrivacyChoice(): PrivacyChoice {
   }
 }
 
+const SECTION_ROUTES: Record<string, string> = {
+  "/": "topo",
+  "/hotelaria": "hotelaria",
+  "/como-funciona": "como-funciona",
+  "/jornada": "jornada",
+  "/produto": "produto",
+  "/sobre": "sobre",
+  "/piloto": "piloto",
+};
+const SECTION_PATHS = Object.fromEntries(Object.entries(SECTION_ROUTES).map(([path, id]) => [id, path]));
+
+function scrollToRoute(path: string, behavior: ScrollBehavior = "smooth") {
+  const id = SECTION_ROUTES[path];
+  if (!id || id === "topo") {
+    window.scrollTo({ top: 0, behavior });
+    return;
+  }
+  document.getElementById(id)?.scrollIntoView({ behavior, block: "start" });
+}
+
 function handleSiteNav(href: string) {
-  const id = href.replace("#", "");
+  const target = new URL(href, window.location.origin);
+  const path = target.pathname;
+  if (!SECTION_ROUTES[path]) return;
+  if (window.location.pathname !== path || window.location.search) {
+    window.history.pushState({}, "", path);
+  }
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  document.getElementById(id)?.scrollIntoView({ behavior: reducedMotion ? "auto" : "smooth" });
+  scrollToRoute(path, reducedMotion ? "auto" : "smooth");
 }
 
 export default function App() {
@@ -44,6 +69,40 @@ function AppContent() {
   const [privacyChoice, setPrivacyChoice] = useState<PrivacyChoice>(readPrivacyChoice);
   const [privacyOpen, setPrivacyOpen] = useState(() => readPrivacyChoice() === null);
   const page = new URLSearchParams(window.location.search).get("page");
+
+  useEffect(() => {
+    if (page) return;
+    const legacyHash = window.location.hash.slice(1);
+    if (legacyHash && SECTION_PATHS[legacyHash]) {
+      const cleanPath = SECTION_PATHS[legacyHash];
+      window.history.replaceState({}, "", cleanPath);
+      requestAnimationFrame(() => scrollToRoute(cleanPath, "auto"));
+    }
+    const currentPath = window.location.pathname.replace(/\/$/, "") || "/";
+    if (!legacyHash && currentPath !== "/" && SECTION_ROUTES[currentPath]) {
+      requestAnimationFrame(() => scrollToRoute(currentPath, "auto"));
+    }
+
+    const onClick = (event: MouseEvent) => {
+      if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+      const anchor = (event.target as HTMLElement).closest("a[href]");
+      if (!(anchor instanceof HTMLAnchorElement) || anchor.target || anchor.hasAttribute("download")) return;
+      const url = new URL(anchor.href, window.location.href);
+      if (url.origin !== window.location.origin || !SECTION_ROUTES[url.pathname]) return;
+      event.preventDefault();
+      handleSiteNav(url.pathname);
+    };
+    const onPopState = () => {
+      const path = window.location.pathname.replace(/\/$/, "") || "/";
+      scrollToRoute(path, "auto");
+    };
+    document.addEventListener("click", onClick);
+    window.addEventListener("popstate", onPopState);
+    return () => {
+      document.removeEventListener("click", onClick);
+      window.removeEventListener("popstate", onPopState);
+    };
+  }, [page]);
   const choosePrivacy = (allowWebsiteCarbon: boolean) => {
     const choice = allowWebsiteCarbon ? "allow" : "reject";
     setPrivacyChoice(choice);

@@ -98,18 +98,18 @@ function PilotFlow({ entered }: { entered: boolean }) {
         {t.pilot.flowLabel}
       </figcaption>
 
-      <div className="grid grid-cols-1 items-stretch gap-3 sm:grid-cols-[minmax(7.5rem,0.8fr)_2.75rem_minmax(11rem,1.35fr)_2.75rem_minmax(7.5rem,0.8fr)] sm:gap-3">
-        <ul className="flex flex-col justify-center gap-2.5" aria-label={t.pilot.sources.join(", ")}>
+      <div className="grid min-w-0 grid-cols-1 items-stretch gap-3 lg:grid-cols-[minmax(0,0.8fr)_2.5rem_minmax(0,1.35fr)_2.5rem_minmax(0,0.8fr)] lg:gap-2">
+        <ul className="flex min-w-0 flex-col justify-center gap-2.5" aria-label={t.pilot.sources.join(", ")}>
           {t.pilot.sources.map((source) => (
-            <li key={source} className="flex min-h-12 items-center gap-2.5 rounded-xl border border-ink/10 bg-white px-3 py-2.5 text-sm font-bold text-ink shadow-sm">
+            <li key={source} className="flex min-h-12 min-w-0 items-center gap-2.5 rounded-xl border border-ink/10 bg-white px-3 py-2.5 text-sm font-bold text-ink shadow-sm">
               <IconFile className="h-4 w-4 shrink-0 text-cyan-deep" />
-              <span>{source}</span>
+              <span className="min-w-0 break-words">{source}</span>
             </li>
           ))}
         </ul>
 
-        <FlowConnector className="hidden sm:block" />
-        <div className="pilot-flow-arrow flex h-6 flex-col items-center justify-center sm:hidden" aria-hidden="true">
+        <FlowConnector className="hidden lg:block" />
+        <div className="pilot-flow-arrow flex h-6 flex-col items-center justify-center lg:hidden" aria-hidden="true">
           <span className="h-3 w-0.5 bg-cyan-deep" />
           <IconArrow className="h-3 w-3 rotate-90 text-cyan-deep" />
         </div>
@@ -124,9 +124,9 @@ function PilotFlow({ entered }: { entered: boolean }) {
           </div>
         </div>
 
-        <div className="pilot-flow-arrow flex items-center justify-center py-1 sm:py-0">
-          <IconArrow className="hidden h-5 w-5 text-cyan-deep sm:block" />
-          <span className="h-5 w-0.5 bg-cyan-deep sm:hidden" />
+        <div className="pilot-flow-arrow flex items-center justify-center py-1 lg:py-0">
+          <IconArrow className="hidden h-5 w-5 text-cyan-deep lg:block" />
+          <span className="h-5 w-0.5 bg-cyan-deep lg:hidden" />
         </div>
 
         <div className="flex min-h-14 items-center justify-center gap-2.5 rounded-xl border border-ink/15 bg-[#e9eee8] px-3 py-3 text-center text-sm font-bold leading-snug text-ink">
