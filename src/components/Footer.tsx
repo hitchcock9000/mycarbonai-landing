@@ -57,7 +57,7 @@ export function Footer({ carbonBadgeEnabled, onPrivacySettings }: FooterProps) {
           </div>
         </div>
       </div>
-      <div className="mx-auto mt-12 flex max-w-[1200px] flex-wrap items-center justify-between gap-3 px-6 text-xs text-white/40 lg:px-10">
+      <div className="mx-auto mt-12 flex max-w-[1200px] flex-wrap items-center justify-between gap-3 overflow-hidden px-6 text-xs text-white/40 lg:px-10">
         <p>© {new Date().getFullYear()} MyCarbonAI</p>
         <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
           <a href="/?page=privacy" className="text-white/70 hover:text-cyan">{t.footer.privacy}</a>

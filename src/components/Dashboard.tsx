@@ -57,8 +57,8 @@ export function Dashboard({ className }: { className?: string }) {
         </button>
       </div>
 
-      <div className="grid grid-cols-[7.2rem_1fr] md:grid-cols-[8.4rem_1fr]">
-        <aside className="border-r border-white/6 px-2 py-3">
+      <div className="grid max-w-full grid-cols-[7.2rem_minmax(0,1fr)] overflow-hidden md:grid-cols-[8.4rem_minmax(0,1fr)]">
+        <aside className="min-w-0 overflow-hidden border-r border-white/6 px-2 py-3">
           <ul className="space-y-0.5">
             {NAV_ITEMS.map((item) => {
               const Icon = item.icon;
@@ -81,19 +81,19 @@ export function Dashboard({ className }: { className?: string }) {
           </ul>
         </aside>
 
-        <div className="px-4 py-3 md:px-5">
+        <div className="min-w-0 max-w-full overflow-hidden px-4 py-3 md:px-5">
           <h2 className="text-[1.05rem] font-bold tracking-tight">{t.dashboard.overview}</h2>
           <p className="mt-0.5 text-[0.68rem] text-white/50">
             {t.dashboard.overviewBody}
           </p>
 
-          <div className="mt-3 grid grid-cols-2 gap-2 lg:grid-cols-4">
+          <div className="mt-3 grid max-w-full grid-cols-2 gap-2 overflow-hidden lg:grid-cols-4">
             {ILLUSTRATIVE_METRICS.map((m) => {
               const Icon = METRIC_ICONS[m.id as keyof typeof METRIC_ICONS];
               return (
                 <div
                   key={m.id}
-                  className="rounded-xl border border-white/8 bg-[#162033] px-2.5 py-2.5"
+                  className="min-w-0 max-w-full overflow-hidden rounded-xl border border-white/8 bg-[#162033] px-2.5 py-2.5"
                 >
                   <Icon className="h-4 w-4 text-cyan" />
                   <p className="mt-2 text-[0.62rem] text-white/50">{t.metrics[ILLUSTRATIVE_METRICS.indexOf(m)]}</p>
@@ -104,7 +104,7 @@ export function Dashboard({ className }: { className?: string }) {
                 </div>
               );
             })}
-            <div className="rounded-xl border border-white/8 bg-[#162033] px-2.5 py-2.5">
+            <div className="min-w-0 max-w-full overflow-hidden rounded-xl border border-white/8 bg-[#162033] px-2.5 py-2.5">
               <IconBox className="h-4 w-4 text-cyan" />
               <p className="mt-2 text-[0.62rem] text-white/50">{t.dashboard.suppliers}</p>
               <p className="text-[0.95rem] font-bold leading-tight">24</p>

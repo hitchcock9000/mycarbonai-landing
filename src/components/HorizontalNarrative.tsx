@@ -168,7 +168,7 @@ function ChapterLandscape() {
   return (
     <div className="relative h-full w-1/5 shrink-0" id="paisagem-desktop">
       <div className="absolute inset-0 flex items-end justify-end p-10 pb-28">
-        <ol className="grid w-full max-w-[48rem] grid-cols-5 gap-3 text-white">
+        <ol className="grid w-full max-w-[48rem] grid-cols-5 gap-3 overflow-hidden text-white">
           {STEPS.map((s, i) => (
             <li key={s.id}>
               <p className="font-display text-4xl leading-none text-white/95 xl:text-5xl">{s.num}</p>
@@ -310,8 +310,8 @@ function ChapterProduct() {
 function MobileNarrative({ onHow }: { onHow: () => void }) {
   const { t } = useLanguage();
   return (
-    <div>
-      <div className="relative min-h-[100svh] overflow-hidden">
+    <div className="max-w-full overflow-hidden">
+      <div className="relative min-h-[100svh] max-w-full overflow-hidden">
         <img
           src={IMG.forestRoad}
           alt={t.common.forestAlt}
@@ -324,7 +324,7 @@ function MobileNarrative({ onHow }: { onHow: () => void }) {
         </div>
       </div>
 
-      <section id="hotelaria" className="relative overflow-hidden">
+      <section id="hotelaria" className="relative max-w-full overflow-hidden">
         <img src={IMG.hotelDusk} alt="" className="absolute inset-0 h-full w-full object-cover" />
         <div className="absolute inset-0 bg-navy/35" />
         <div className="relative px-5 py-16 text-white">
@@ -337,7 +337,7 @@ function MobileNarrative({ onHow }: { onHow: () => void }) {
             {t.hotel.body}
           </p>
           <p className="mt-6 text-xs text-white/60">{t.hotel.illustrativeData}</p>
-          <div className="mt-3 grid gap-3 sm:grid-cols-3">
+          <div className="mt-3 grid max-w-full gap-3 overflow-hidden sm:grid-cols-3">
             {ILLUSTRATIVE_METRICS.map((m, i) => {
               const Icon = [IconBolt, IconDrop, IconRecycle][i];
               return (
@@ -354,7 +354,7 @@ function MobileNarrative({ onHow }: { onHow: () => void }) {
         </div>
       </section>
 
-      <section id="produto-hero" className="relative overflow-hidden bg-navy px-5 py-16">
+      <section id="produto-hero" className="relative max-w-full overflow-hidden bg-navy px-5 py-16">
         <p className="kicker flex items-center gap-3 text-white/60">
           <span className="inline-block h-0.5 w-8 bg-cyan" />
           {t.product.kicker}

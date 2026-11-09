@@ -7,7 +7,7 @@ export function FutureVision() {
   const { t } = useLanguage();
   return (
     <section id="visao-produto" className="relative bg-navy py-24 text-white lg:py-32">
-      <div className="mx-auto max-w-[1200px] px-6 lg:px-10">
+      <div className="mx-auto max-w-[1200px] overflow-hidden px-6 lg:px-10">
         <div className="flex flex-wrap items-center gap-3">
           <span className="vision-badge">{t.future.badge}</span>
           <p className="text-sm font-medium text-white/85">{t.future.disclaimer}</p>

@@ -8,8 +8,8 @@ export function DocumentFlow({ layout = "stack" }: DocumentFlowProps) {
   const { t } = useLanguage();
   const wideLayout = layout === "wide";
   return (
-    <div className="w-full">
-    <p className="mb-3 inline-flex max-w-full rounded-lg border border-cyan-deep/20 bg-cyan/10 px-3 py-2 text-xs font-semibold leading-relaxed text-ink/75">
+    <div className="w-full max-w-full overflow-hidden">
+    <p className="mb-3 inline-flex max-w-full flex-wrap break-words rounded-lg border border-cyan-deep/20 bg-cyan/10 px-3 py-2 text-xs font-semibold leading-relaxed text-ink/75">
       {t.flow.illustrativeNotice}
     </p>
     <div className={`grid w-full grid-cols-1 justify-items-center gap-5 ${wideLayout ? "xl:grid-cols-[260px_44px_minmax(0,420px)] xl:items-center xl:justify-center xl:gap-3" : ""}`}>
@@ -52,7 +52,7 @@ export function DocumentFlow({ layout = "stack" }: DocumentFlowProps) {
         </svg>
       </div>
 
-      <div className="w-full min-w-0 max-w-[420px] rounded-2xl border border-white/10 bg-navy p-4 text-white shadow-[0_18px_44px_rgba(11,21,38,0.22)] sm:p-5">
+      <div className="w-full min-w-0 max-w-[420px] overflow-hidden rounded-2xl border border-white/10 bg-navy p-4 text-white shadow-[0_18px_44px_rgba(11,21,38,0.22)] sm:p-5">
         <div className="mb-3 flex items-baseline justify-between gap-3">
           <h3 className="text-[0.95rem] font-bold">{t.flow.organizedData}</h3>
           <span className="text-[0.7rem] font-medium text-white/75">({t.illustrative})</span>

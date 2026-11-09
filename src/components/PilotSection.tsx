@@ -32,7 +32,7 @@ export function PilotSection() {
 
   return (
     <section ref={sectionRef} id="piloto-valida" className="scroll-mt-24 bg-ivory py-20 lg:py-28">
-      <div className="mx-auto max-w-[1200px] px-6 lg:px-10">
+      <div className="mx-auto max-w-[1200px] overflow-hidden px-6 lg:px-10">
         <div className={`grid items-center gap-10 xl:grid-cols-[0.9fr_1.1fr] xl:gap-14 ${reveal}`}>
           <div>
             <p className="kicker flex items-center gap-3 text-ink/65">
@@ -50,7 +50,7 @@ export function PilotSection() {
           <PilotFlow entered={entered && !reducedMotion} />
         </div>
 
-        <div className={`mt-12 rounded-2xl bg-[#e9eee8] px-5 py-5 md:px-8 ${reveal}`}>
+        <div className={`mt-12 max-w-full overflow-hidden rounded-2xl bg-[#e9eee8] px-5 py-5 md:px-8 ${reveal}`}>
           <dl className="grid gap-4 md:grid-cols-3 md:gap-0">
             {t.pilot.scope.map((item, index) => (
               <div key={item} className={`flex min-h-12 items-center md:px-6 ${index > 0 ? "md:border-l md:border-ink/15" : "md:pl-0"}`}>
@@ -80,7 +80,7 @@ export function PilotSection() {
           ))}
         </ol>
 
-        <div className={`mt-12 rounded-2xl bg-navy px-6 py-7 text-white md:px-9 lg:mt-16 ${reveal}`}>
+        <div className={`mt-12 max-w-full overflow-hidden rounded-2xl bg-navy px-6 py-7 text-white md:px-9 lg:mt-16 ${reveal}`}>
           <p className="kicker text-cyan">{t.pilot.resultLabel}</p>
           <p className="mt-3 max-w-5xl font-display text-xl leading-snug md:text-2xl">{t.pilot.result}</p>
           <p className="mt-4 max-w-5xl text-sm leading-relaxed text-white/75 md:text-base">{t.pilot.caveat}</p>
@@ -93,17 +93,17 @@ export function PilotSection() {
 function PilotFlow({ entered }: { entered: boolean }) {
   const { t } = useLanguage();
   return (
-    <figure className={`pilot-flow rounded-2xl border border-ink/10 bg-white/55 p-4 md:p-6 ${entered ? "pilot-flow-enter" : ""}`}>
-      <figcaption className="mb-5 inline-flex rounded-full bg-cyan/20 px-3 py-1.5 text-[0.68rem] font-extrabold uppercase tracking-[0.12em] text-ink md:text-xs">
+    <figure className={`pilot-flow max-w-full overflow-hidden rounded-2xl border border-ink/10 bg-white/55 p-4 md:p-6 ${entered ? "pilot-flow-enter" : ""}`}>
+      <figcaption className="mb-5 inline-flex max-w-full flex-wrap justify-center break-words rounded-full bg-cyan/20 px-3 py-1.5 text-center text-[0.68rem] font-extrabold uppercase tracking-[0.12em] text-ink md:text-xs">
         {t.pilot.flowLabel}
       </figcaption>
 
       <div className="grid min-w-0 grid-cols-1 items-stretch gap-3 lg:grid-cols-[minmax(0,0.8fr)_2.5rem_minmax(0,1.35fr)_2.5rem_minmax(0,0.8fr)] lg:gap-2">
-        <ul className="flex min-w-0 flex-col justify-center gap-2.5" aria-label={t.pilot.sources.join(", ")}>
+        <ul className="flex min-w-0 max-w-full flex-col justify-center gap-2.5 overflow-hidden" aria-label={t.pilot.sources.join(", ")}>
           {t.pilot.sources.map((source) => (
-            <li key={source} className="flex min-h-12 min-w-0 items-center gap-2.5 rounded-xl border border-ink/10 bg-white px-3 py-2.5 text-sm font-bold text-ink shadow-sm">
+            <li key={source} className="flex min-h-12 min-w-0 max-w-full items-center gap-2.5 overflow-hidden rounded-xl border border-ink/10 bg-white px-3 py-2.5 text-sm font-bold text-ink shadow-sm">
               <IconFile className="h-4 w-4 shrink-0 text-cyan-deep" />
-              <span className="min-w-0 break-words">{source}</span>
+              <span className="min-w-0 flex-1 break-words">{source}</span>
             </li>
           ))}
         </ul>
@@ -114,8 +114,8 @@ function PilotFlow({ entered }: { entered: boolean }) {
           <IconArrow className="h-3 w-3 rotate-90 text-cyan-deep" />
         </div>
 
-        <div className="rounded-xl border border-ink/20 bg-white shadow-sm">
-          <h3 className="rounded-t-xl border-b border-cyan-deep/25 bg-cyan/20 px-3 py-3 text-sm font-extrabold leading-snug text-ink md:text-base">
+        <div className="min-w-0 max-w-full overflow-hidden rounded-xl border border-ink/20 bg-white shadow-sm">
+          <h3 className="rounded-t-xl border-b border-cyan-deep/25 bg-cyan/20 px-3 py-3 text-sm font-extrabold leading-snug break-words text-ink md:text-base">
             {t.pilot.recordTitle}
           </h3>
           <div className="divide-y divide-ink/10 px-3 text-xs font-semibold text-ink/75 md:text-sm">
@@ -129,7 +129,7 @@ function PilotFlow({ entered }: { entered: boolean }) {
           <span className="h-5 w-0.5 bg-cyan-deep lg:hidden" />
         </div>
 
-        <div className="flex min-h-14 items-center justify-center gap-2.5 rounded-xl border border-ink/15 bg-[#e9eee8] px-3 py-3 text-center text-sm font-bold leading-snug text-ink">
+        <div className="flex min-h-14 min-w-0 max-w-full items-center justify-center gap-2.5 overflow-hidden rounded-xl border border-ink/15 bg-[#e9eee8] px-3 py-3 text-center text-sm font-bold leading-snug break-words text-ink">
           <PersonOutline />
           <span>{t.pilot.reviewTitle}</span>
         </div>

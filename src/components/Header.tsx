@@ -37,10 +37,11 @@ export function Header({
         solid && "pointer-events-auto sticky top-0 bg-ivory/90 backdrop-blur-md",
       )}
     >
-      <div className="pointer-events-auto mx-auto flex h-[4.6rem] max-w-[1440px] items-center justify-between px-5 md:h-[5.1rem] md:px-8 lg:px-10">
+      <div className="pointer-events-auto mx-auto flex h-[4.6rem] max-w-[1440px] items-center justify-between gap-3 px-5 md:h-[5.1rem] md:px-8 lg:px-10">
         <Logo
           wordmarkClassName={logoLight ? "text-ink" : "text-white"}
           markClassName="text-cyan"
+          className="min-w-0 shrink-0"
         />
 
         <nav className="hidden items-center gap-9 lg:flex" aria-label={t.common.navLabel}>
@@ -68,8 +69,8 @@ export function Header({
           ))}
         </nav>
 
-        <div className="flex items-center gap-3">
-          <div className={cn("flex items-center rounded-full border p-0.5 text-[0.68rem] font-bold", light ? "border-ink/15" : "border-white/20")} role="group" aria-label={t.language}>
+        <div className="flex min-w-0 shrink-0 items-center gap-2 sm:gap-3">
+          <div className={cn("flex shrink-0 items-center rounded-full border p-0.5 text-[0.68rem] font-bold", light ? "border-ink/15" : "border-white/20")} role="group" aria-label={t.language}>
             {(["pt", "en"] as const).map((code) => (
               <button
                 key={code}
@@ -88,14 +89,14 @@ export function Header({
               </button>
             ))}
           </div>
-          <a href="/piloto" className="btn-primary btn-sm hidden sm:inline-flex" onClick={() => setOpen(false)}>
+          <a href="/piloto" className="btn-primary btn-sm hidden max-w-full shrink-0 sm:inline-flex" onClick={() => setOpen(false)}>
             {t.ctaPilot}
             <IconArrow />
           </a>
           <button
             type="button"
             className={cn(
-              "grid h-11 w-11 place-items-center rounded-full lg:hidden",
+              "grid h-11 w-11 shrink-0 place-items-center rounded-full lg:hidden",
               light ? "text-ink" : "text-white",
             )}
             aria-expanded={open}
