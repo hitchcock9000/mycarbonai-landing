@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import { Logo } from "./Logo";
 import { IconArrow, IconClose, IconMenu } from "./Icons";
 import { NAV } from "../data/content";
@@ -22,8 +22,40 @@ export function Header({
 }: HeaderProps) {
   const { language, setLanguage, t } = useLanguage();
   const [open, setOpen] = useState(false);
+  const menuId = useId();
+  const headerRef = useRef<HTMLElement>(null);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
   const light = theme === "light";
   const logoLight = (logoTheme ?? theme) === "light";
+
+  useEffect(() => {
+    if (!open) return;
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setOpen(false);
+        menuButtonRef.current?.focus();
+      }
+    };
+    const onPointerDown = (event: PointerEvent) => {
+      if (!headerRef.current?.contains(event.target as Node)) {
+        setOpen(false);
+      }
+    };
+    const media = window.matchMedia("(min-width: 1024px)");
+    const onViewportChange = () => {
+      if (media.matches) setOpen(false);
+    };
+
+    document.addEventListener("keydown", onKeyDown);
+    document.addEventListener("pointerdown", onPointerDown);
+    media.addEventListener("change", onViewportChange);
+    return () => {
+      document.removeEventListener("keydown", onKeyDown);
+      document.removeEventListener("pointerdown", onPointerDown);
+      media.removeEventListener("change", onViewportChange);
+    };
+  }, [open]);
 
   const handle = (href: string) => {
     setOpen(false);
@@ -32,19 +64,25 @@ export function Header({
 
   return (
     <header
+      ref={headerRef}
       className={cn(
-        "pointer-events-none absolute inset-x-0 top-0 z-50",
-        solid && "pointer-events-auto sticky top-0 bg-ivory/90 backdrop-blur-md",
+        "z-50",
+        solid
+          ? "pointer-events-auto sticky top-0 bg-ivory/90 backdrop-blur-md"
+          : cn(
+              "pointer-events-none absolute inset-x-0 top-0 transition-colors",
+              open && "bg-forest/95 backdrop-blur-md",
+            ),
       )}
     >
-      <div className="pointer-events-auto mx-auto flex h-[4.6rem] max-w-[1440px] items-center justify-between gap-3 px-5 md:h-[5.1rem] md:px-8 lg:px-10">
+      <div className="pointer-events-auto mx-auto flex h-[4.6rem] max-w-[1440px] items-center justify-between gap-2 px-4 sm:gap-3 sm:px-5 md:h-[5.1rem] md:px-8 lg:px-10">
         <Logo
-          wordmarkClassName={logoLight ? "text-ink" : "text-white"}
+          wordmarkClassName={cn("text-[1.15rem] min-[375px]:text-[1.35rem]", logoLight ? "text-ink" : "text-white")}
           markClassName="text-cyan"
           className="min-w-0 shrink-0"
         />
 
-        <nav className="hidden items-center gap-9 lg:flex" aria-label={t.common.navLabel}>
+        <nav className="hidden items-center gap-5 lg:flex xl:gap-9" aria-label={t.common.navLabel}>
           {NAV.map((item, index) => (
             <a
               key={item.id}
@@ -89,18 +127,21 @@ export function Header({
               </button>
             ))}
           </div>
-          <a href="/piloto" className="btn-primary btn-sm hidden max-w-full shrink-0 sm:inline-flex" onClick={() => setOpen(false)}>
+          <a href="/piloto" className="btn-primary btn-sm hidden max-w-full shrink-0 lg:inline-flex" onClick={() => setOpen(false)}>
             {t.ctaPilot}
             <IconArrow />
           </a>
           <button
+            ref={menuButtonRef}
             type="button"
             className={cn(
-              "grid h-11 w-11 shrink-0 place-items-center rounded-full lg:hidden",
-              light ? "text-ink" : "text-white",
+              "grid h-11 w-11 shrink-0 place-items-center rounded-full border transition-colors lg:hidden",
+              light
+                ? "border-ink/15 text-ink hover:bg-ink/5"
+                : "border-white/20 bg-forest/35 text-white hover:bg-white/10",
             )}
             aria-expanded={open}
-            aria-controls="menu-mobile"
+            aria-controls={menuId}
             aria-label={open ? t.common.closeMenu : t.common.openMenu}
             onClick={() => setOpen((v) => !v)}
           >
@@ -111,11 +152,11 @@ export function Header({
 
       {open && (
         <div
-          id="menu-mobile"
-          className="pointer-events-auto border-t border-white/10 bg-forest/95 px-5 py-5 backdrop-blur-md lg:hidden"
+          id={menuId}
+          className="pointer-events-auto max-h-[calc(100svh-4.6rem)] overflow-y-auto border-t border-white/10 bg-forest/95 px-5 py-5 shadow-2xl backdrop-blur-md lg:hidden"
         >
           <nav className="flex flex-col gap-1" aria-label={t.common.mobileNavLabel}>
-          {NAV.map((item, index) => (
+            {NAV.map((item, index) => (
               <a
                 key={item.id}
                 href={item.href}
@@ -127,12 +168,27 @@ export function Header({
                     setOpen(false);
                   }
                 }}
-                className="rounded-lg px-3 py-3 text-base font-semibold text-white"
+                aria-current={activeId === item.id ? "location" : undefined}
+                className={cn(
+                  "rounded-lg px-3 py-3 text-base font-semibold text-white/90 transition-colors hover:bg-white/10 hover:text-white active:bg-white/15",
+                  activeId === item.id && "bg-white/10 text-cyan",
+                )}
               >
                 {t.nav[index]}
               </a>
             ))}
-            <a href="/piloto" className="btn-primary mt-3" onClick={() => setOpen(false)}>
+            <a
+              href="/piloto"
+              className="btn-primary mt-3 w-full"
+              onClick={(e) => {
+                if (onNav) {
+                  e.preventDefault();
+                  handle("/piloto");
+                } else {
+                  setOpen(false);
+                }
+              }}
+            >
               {t.ctaPilot}
               <IconArrow />
             </a>
