@@ -108,10 +108,10 @@ export function HowItWorks() {
           role="tabpanel"
           aria-labelledby={`how-step-tab-${activeStep}`}
           tabIndex={0}
-          className={`mt-6 rounded-[1.5rem] border border-ink/10 bg-white p-5 shadow-[0_15px_45px_rgba(4,20,35,0.07)] outline-none focus-visible:ring-2 focus-visible:ring-cyan md:p-8 lg:mt-7 lg:p-10 ${reveal}`}
+          className={`mt-6 max-w-full overflow-hidden rounded-[1.5rem] border border-ink/10 bg-white p-5 shadow-[0_15px_45px_rgba(4,20,35,0.07)] outline-none focus-visible:ring-2 focus-visible:ring-cyan md:p-8 lg:mt-7 lg:p-10 ${reveal}`}
         >
           <div className="grid items-center gap-7 lg:grid-cols-[minmax(250px,0.78fr)_minmax(0,1.22fr)] lg:gap-10">
-            <div key={`copy-${activeStep}`} className={reducedMotion ? "" : "how-step-enter"}>
+            <div key={`copy-${activeStep}`} className={`min-w-0 max-w-full overflow-hidden ${reducedMotion ? "" : "how-step-enter"}`}>
               <span className="inline-flex items-center gap-2 rounded-full bg-emerald-50 px-3 py-1.5 text-xs font-bold text-emerald-900">
                 <span className="h-2 w-2 rounded-full bg-emerald-600" aria-hidden="true" />{t.how.currentPilot}
               </span>
@@ -123,12 +123,12 @@ export function HowItWorks() {
               </span>
               <p className="mt-3 max-w-lg text-sm leading-relaxed text-ink/65 md:text-base">{step.futureText}</p>
             </div>
-            <div key={`illustration-${activeStep}`} className={`min-w-0 ${reducedMotion ? "" : "how-step-enter"}`}>
+            <div key={`illustration-${activeStep}`} className={`min-w-0 max-w-full overflow-hidden ${reducedMotion ? "" : "how-step-enter"}`}>
               <PhaseIllustration index={activeStep} labels={t.how.diagram} stage={t.stepNames[activeStep]} />
             </div>
           </div>
 
-          <nav aria-label={t.how.slideNavigation} className="mt-7 flex flex-wrap items-center justify-between gap-4 border-t border-ink/10 pt-5">
+          <nav aria-label={t.how.slideNavigation} className="mt-7 flex max-w-full flex-wrap items-center justify-between gap-4 overflow-hidden border-t border-ink/10 pt-5">
             <button type="button" onClick={() => changeStep(-1)} disabled={activeStep === 0} aria-label={t.how.previousStep} className="inline-flex min-h-11 items-center gap-2 rounded-full border border-ink/30 px-4 py-2 text-sm font-bold text-ink transition-colors hover:border-cyan-deep hover:bg-cyan/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan disabled:cursor-not-allowed disabled:opacity-40">
               <IconArrow className="rotate-180" />{t.how.previousStep}
             </button>
@@ -172,8 +172,8 @@ type DiagramLabels = {
 
 function PhaseIllustration({ index, labels, stage }: { index: number; labels: DiagramLabels; stage: string }) {
   return (
-    <div className="relative min-h-[17rem] overflow-hidden rounded-2xl border border-ink/10 bg-cream p-4 sm:min-h-[19rem] sm:p-6" aria-label={`${stage} — ${labels.illustrative}`}>
-      <span className="absolute right-4 top-4 rounded-full bg-cyan/15 px-3 py-1.5 text-[0.62rem] font-extrabold uppercase tracking-[0.1em] text-ink/75 sm:right-5 sm:top-5">{labels.illustrative}</span>
+    <div className="relative min-h-[17rem] max-w-full overflow-hidden rounded-2xl border border-ink/10 bg-cream p-4 sm:min-h-[19rem] sm:p-6" aria-label={`${stage} — ${labels.illustrative}`}>
+      <span className="absolute right-4 top-4 max-w-[calc(100%-2rem)] rounded-full bg-cyan/15 px-3 py-1.5 text-center text-[0.62rem] font-extrabold uppercase leading-tight tracking-[0.1em] text-ink/75 sm:right-5 sm:top-5 break-words whitespace-normal">{labels.illustrative}</span>
       <div className="flex min-h-[15rem] items-center justify-center pt-9 sm:min-h-[16rem]">
         {index === 0 && <IdentifyDiagram labels={labels} />}
         {index === 1 && <MeasureDiagram labels={labels} />}
@@ -187,8 +187,8 @@ function PhaseIllustration({ index, labels, stage }: { index: number; labels: Di
 
 function IdentifyDiagram({ labels }: { labels: DiagramLabels }) {
   return (
-    <div className="flex w-full max-w-[42rem] min-w-0 flex-col items-stretch gap-3 md:grid md:grid-cols-[minmax(0,0.8fr)_auto_minmax(0,1fr)] md:items-center md:gap-4">
-      <div className="min-w-0 space-y-2.5">
+    <div className="flex w-full max-w-[42rem] min-w-0 flex-col items-stretch gap-3 overflow-hidden md:grid md:grid-cols-[minmax(0,0.8fr)_auto_minmax(0,1fr)] md:items-center md:gap-4">
+      <div className="min-w-0 max-w-full space-y-2.5 overflow-hidden">
         {labels.sources.map((source) => <div key={source} className="flex min-h-12 min-w-0 items-center gap-2 rounded-xl border border-ink/10 bg-white px-2.5 text-xs font-bold text-ink shadow-sm sm:min-h-14 sm:gap-3 sm:px-4 sm:text-sm"><IconFile className="h-4 w-4 shrink-0 text-cyan-deep sm:h-5 sm:w-5" /><span className="min-w-0 break-words">{source}</span></div>)}
       </div>
       <FlowArrow />
@@ -246,7 +246,7 @@ function ActDiagram({ labels }: { labels: DiagramLabels }) {
 function ReportDiagram({ labels }: { labels: DiagramLabels }) {
   return (
     <div className="flex w-full max-w-[40rem] min-w-0 flex-col items-stretch gap-3 md:grid md:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] md:items-center md:gap-4">
-      <div className="min-w-0 space-y-2.5">{labels.sources.map((source) => <div key={source} className="flex min-h-11 min-w-0 items-center gap-2 rounded-xl border border-ink/15 bg-white px-2.5 text-xs font-bold text-ink sm:min-h-12 sm:gap-3 sm:px-4 sm:text-sm"><IconFile className="h-4 w-4 shrink-0 text-cyan-deep" /><span className="min-w-0 break-words">{source}</span><IconLink className="ml-auto h-4 w-4 shrink-0 text-cyan-deep" /></div>)}</div>
+      <div className="min-w-0 max-w-full space-y-2.5 overflow-hidden">{labels.sources.map((source) => <div key={source} className="flex min-h-11 min-w-0 items-center gap-2 rounded-xl border border-ink/15 bg-white px-2.5 text-xs font-bold text-ink sm:min-h-12 sm:gap-3 sm:px-4 sm:text-sm"><IconFile className="h-4 w-4 shrink-0 text-cyan-deep" /><span className="min-w-0 break-words">{source}</span><IconLink className="ml-auto h-4 w-4 shrink-0 text-cyan-deep" /></div>)}</div>
       <FlowArrow />
       <div className="min-w-0 rounded-xl border border-ink/20 bg-white p-3 sm:p-4">
         <span className="mb-2 inline-flex rounded-full bg-cyan/15 px-2.5 py-1 text-[0.6rem] font-extrabold text-ink/70">{labels.reportDraft}</span>

@@ -49,7 +49,7 @@ export function ContactCTA() {
         alt=""
         className="pointer-events-none absolute -right-8 top-0 hidden h-72 w-auto opacity-70 lg:block"
       />
-      <div className="relative mx-auto grid max-w-[1200px] gap-14 px-6 lg:grid-cols-[1.05fr_0.95fr] lg:px-10">
+      <div className="relative mx-auto grid max-w-[1200px] gap-14 overflow-hidden px-6 lg:grid-cols-[1.05fr_0.95fr] lg:px-10">
         <div>
           <p className="kicker flex items-center gap-3 text-white/60">
             <span className="inline-block h-0.5 w-8 bg-cyan" />
@@ -66,7 +66,7 @@ export function ContactCTA() {
           </ul>
         </div>
 
-        <div className="rounded-3xl bg-ivory p-7 text-ink shadow-2xl md:p-9">
+        <div className="min-w-0 max-w-full overflow-hidden rounded-3xl bg-ivory p-7 text-ink shadow-2xl md:p-9">
           {submission ? (
             <div>
               <p className="kicker text-ink/50" role="status">{submission.kind === "sent" ? copy.thanks : copy.emailFallbackTitle}</p>

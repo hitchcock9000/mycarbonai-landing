@@ -5,7 +5,7 @@ export function AboutSection() {
 
   return (
     <section id="sobre" className="scroll-mt-24 bg-ivory py-20 lg:py-28">
-      <div className="mx-auto max-w-[1200px] px-6 lg:px-10">
+      <div className="mx-auto max-w-[1200px] overflow-hidden px-6 lg:px-10">
         <p className="kicker flex items-center gap-3 text-ink/60">
           <span className="inline-block h-0.5 w-8 bg-cyan" />
           {t.about.kicker}

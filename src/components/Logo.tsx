@@ -22,11 +22,11 @@ export function Logo({
 }: LogoProps) {
   const { t } = useLanguage();
   return (
-    <a href={href} className={cn("inline-flex items-center gap-2.5 no-underline", className)} aria-label={t.brandAria}>
+    <a href={href} className={cn("inline-flex min-w-0 max-w-full items-center gap-2.5 overflow-hidden no-underline", className)} aria-label={t.brandAria}>
       <span className={cn("inline-flex text-cyan", markClassName)} aria-hidden>
         <LogoMark />
       </span>
-      <span className="flex flex-col leading-none">
+      <span className="flex min-w-0 flex-col leading-none">
         <span
           className={cn(
             "font-display text-[1.35rem] tracking-tight text-white",

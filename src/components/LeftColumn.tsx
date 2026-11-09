@@ -36,8 +36,8 @@ export function LeftColumn({ onHow, compact = false }: LeftColumnProps) {
         {t.hero.body}
       </p>
 
-      <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-3">
-        <a href="/piloto" className="btn-primary">
+      <div className="mt-6 flex max-w-full flex-wrap items-center gap-x-5 gap-y-3 overflow-hidden">
+        <a href="/piloto" className="btn-primary max-w-full">
           {t.ctaPilot}
           <IconArrow />
         </a>
